@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Survey-Feedback App.props" />
+</Project>
