@@ -17,7 +17,7 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return request;
         }
 
-        public Option GetById(string id)
+        public Option GetById (string id)
         {
             throw new NotImplementedException();
         }
