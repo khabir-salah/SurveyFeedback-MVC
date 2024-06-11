@@ -11,16 +11,15 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
         {
             _context = context;
         }
-        public int Add(Response response)
+        public SurveyResponse Add(SurveyResponse response)
         {
             _context.Responses.Add(response);
-            return _context.SaveChanges();
+            return response;
         }
 
-        public Response Get(int id)
+        public SurveyResponse? Get(string id)
         {
-            var response = _context.Responses.FirstOrDefault(r => r.ResponseId == id);
-            return response;
+           return  _context.Responses.Find(id);
         }
     }
 }

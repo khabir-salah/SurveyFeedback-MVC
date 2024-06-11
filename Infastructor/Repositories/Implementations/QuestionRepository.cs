@@ -7,20 +7,19 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
     public class QuestionRepository : IQuestionRepository
     {
         private readonly SurveyFeedbackContext _context;
-        public QuestionRepository(IQuestionRepository context)
+        public QuestionRepository(SurveyFeedbackContext context)
         {
             _context = context;
         }
-        public int Add(Question question)
+        public Question Add(Question question)
         {
             _context.Questions.Add(question);
-            return _context.SaveChanges();
+            return question;
         }
 
-        public Question GetById(int id)
+        public Question GetById(string id)
         {
-            var question = _context.Questions.FirstOrDefault(q => q.QuestionId == id);
-            return question;
+            throw new NotImplementedException();
         }
     }
 }

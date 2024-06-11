@@ -2,7 +2,7 @@
 
 namespace Survey_Feedback_App.Controllers
 {
-    public class ResponseController : Controller
+    public class ResponseController : Microsoft.AspNetCore.Mvc.Controller
     {
         public IActionResult Index()
         {

@@ -5,10 +5,9 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 {
     public interface ISurveyService
     {
-        SurveyResponseModel Create(SurveyRequestModel request);
 
 
-        SurveyResponseModel Get(int Id);
+        BaseResponse<SurveyResponseModel> Get(string Id);
 
 
 
@@ -18,21 +17,21 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
         // public Survey GetSurvey(string title);
 
 
-        ICollection<SurveyResponseModel> GetByUser();
+        BaseResponse<ICollection<SurveyResponseModel>> GetByUser();
 
 
-        ICollection<SurveyResponseModel> GetAllDenied();
+        BaseResponse<ICollection<SurveyResponseModel>> GetAllDenied();
 
-        ICollection<SurveyResponseModel> GetDeniedSurveyByClient(int Id);
-
-
-        ICollection<SurveyResponseModel> GetApprovedSurveyByClient(int Id);
-
-        ICollection<SurveyResponseModel> GetPendingSurveyByClient(int Id);
+        BaseResponse<ICollection<SurveyResponseModel>> GetDeniedSurveyByClient(int Id);
 
 
-        ICollection<SurveyResponseModel> ViewAllApprovedSurvey();
+        BaseResponse<ICollection<SurveyResponseModel>> GetApprovedSurveyByClient(int Id);
 
-        ICollection<SurveyResponseModel> GetAllPendingSurvey();
+        BaseResponse<ICollection<SurveyResponseModel>> GetPendingSurveyByClient(int Id);
+
+
+        BaseResponse<ICollection<SurveyResponseModel>> GetAllApproved();
+
+        BaseResponse<ICollection<SurveyResponseModel>> GetAllPending();
     }
 }

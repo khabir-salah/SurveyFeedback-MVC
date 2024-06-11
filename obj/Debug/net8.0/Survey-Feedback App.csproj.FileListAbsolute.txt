@@ -102,3 +102,5 @@ C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\obj\Debug\ne
 C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\obj\Debug\net8.0\Survey-Feedback App.pdb
 C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\obj\Debug\net8.0\Survey-Feedback App.genruntimeconfig.cache
 C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\obj\Debug\net8.0\ref\Survey-Feedback App.dll
+C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\obj\Debug\net8.0\Survey-Feedback App.sourcelink.json
+C:\Users\ADMIN\source\repos\Survey-Feedback App\Survey-Feedback App\bin\Debug\net8.0\BCrypt.Net-Next.dll

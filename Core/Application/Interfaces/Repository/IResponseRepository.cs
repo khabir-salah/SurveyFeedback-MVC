@@ -4,7 +4,7 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
 {
     public interface IResponseRepository
     {
-        int Add(Response response);
-        Response Get(int id);
+        SurveyResponse Add(SurveyResponse response);
+        SurveyResponse Get(string id);
     }
 }

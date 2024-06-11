@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Survey_Feedback_App.Core.Application.Interfaces.Repository;
+using Survey_Feedback_App.Core.Application.Interfaces.Service;
+using Survey_Feedback_App.Core.Application.Services.Implementation;
 using Survey_Feedback_App.Infastructor.Context;
+using Survey_Feedback_App.Infastructor.Repositories.Implementations;
 
 
 namespace Survey_Feedback_App
@@ -15,7 +20,21 @@ namespace Survey_Feedback_App
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<SurveyFeedbackContext>(
                 option => option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
+            builder.Services.AddScoped<ICreateSurveyService, CreateSurveyService>();
+            builder.Services.AddScoped<ISurveyRepository , SurveyRepository>();
+            builder.Services.AddScoped<IIdentityService , IdentityService>();
+            builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
+            builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddScoped<IUsersRegRepository, UsersRegRepository>();
+            builder.Services.AddScoped<IOptionRepository, OptionRepository>();
+            builder.Services.AddScoped<IUsersUnregRepository, UsersUnregRepository>();
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.Cookie.Name = "SalahSurvey";
+                
+            });
 
             var app = builder.Build();
 
@@ -31,7 +50,7 @@ namespace Survey_Feedback_App
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

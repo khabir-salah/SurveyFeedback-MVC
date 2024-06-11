@@ -1,0 +1,150 @@
+﻿@model Survey_Feedback_App.Core.Application.DTOs.RequestDTO.SurveyRequestModel
+@{
+    Layout = "_Layout1";
+}
+@{
+    ViewData["Title"] = "Create Survey";
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f1f3f4;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 50px;
+            max-width: 800px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-header {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .form-header h2 {
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .form-header p {
+            color: #5f6368;
+        }
+        .form-group {
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-weight: 500;
+            color: #202124;
+        }
+        .form-check-label {
+            color: #5f6368;
+        }
+        .btn-primary {
+            background-color: #1a73e8;
+            border-color: #1a73e8;
+        }
+        .btn-primary:hover {
+            background-color: #155ab6;
+            border-color: #155ab6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h2>Create Survey</h2>
+            <p>Add your questions below.</p>
+        </div>
+        @using (Html.BeginForm("CreateSurvey", "Survey", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Enter survey title" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Upload)
+                @Html.TextBoxFor(m => m.Upload, new { @class = "form-control", placeholder = "Upload link" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EndTime)
+                @Html.TextBoxFor(m => m.EndTime, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local" })
+            </div>
+            
+            <div id="questionsContainer">
+                @if (Model.Questions != null && Model.Questions.Count > 0)
+                {
+                    for (int i = 0; i < Model.Questions.Count; i++)
+                    {
+                        <div class="form-group">
+                            <label>Question @(i + 1)</label>
+                            @Html.TextBoxFor(m => m.Questions[i].Text, new { @class = "form-control", placeholder = "Enter your question" })
+                            @Html.DropDownListFor(m => m.Questions[i].Type, new SelectList(new List<string> { "text", "radio", "checkbox" }), new { @class = "form-control mb-2" })
+                            
+                            <div>
+                                @for (int j = 0; j < Model.Questions[i].Options.Count; j++)
+                                {
+                                    <div class="form-check">
+                                        @Html.TextBoxFor(m => m.Questions[i].Options[j].Text, new { @class = "form-control", placeholder = $"Option {j + 1} text" })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <button type="button" class="btn btn-secondary mb-3" onclick="addQuestion()">Add Question</button>
+            <button type="submit" class="btn btn-primary">Submit Survey</button>
+        }
+    </div>
+
+    <script>
+        let questionCount = @Model.Questions.Count;
+
+        function addQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const questionIndex = questionCount++;
+            const questionHtml = `
+                <div class="form-group">
+                    <label>Question ${questionIndex + 1}</label>
+                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" placeholder="Enter your question" />
+                    <select name="Questions[${questionIndex}].Type" class="form-control mb-2">
+                        <option value="text">Text</option>
+                        <option value="radio">Multiple Choice (Radio)</option>
+                        <option value="checkbox">Multiple Choice (Checkbox)</option>
+                    </select>
+                    <div id="optionsContainer${questionIndex}"></div>
+                    <input type="button" value="Add Option" class="btn btn-link" onclick="addOption(${questionIndex})" />
+                </div>
+            `;
+            container.innerHTML += questionHtml;
+        }
+
+        function addOption(questionIndex) {
+            const optionsContainer = document.getElementById('optionsContainer' + questionIndex);
+            const optionCount = optionsContainer.getElementsByClassName('form-check').length;
+            const optionHtml = `
+                <div class="form-check">
+                    <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].Text" class="form-control" placeholder="Option ${optionCount + 1} text" />
+                </div>
+            `;
+            optionsContainer.innerHTML += optionHtml;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+

@@ -5,6 +5,398 @@
       "PackagePath": "staticwebassets\\Survey-Feedback App.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\Dashboard.css",
+      "PackagePath": "staticwebassets\\Template\\css\\Dashboard.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\Department.css",
+      "PackagePath": "staticwebassets\\Template\\css\\Department.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\Staff.css",
+      "PackagePath": "staticwebassets\\Template\\css\\Staff.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\animate.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\animate.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bk.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bk.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\Template\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\default-skin.css",
+      "PackagePath": "staticwebassets\\Template\\css\\default-skin.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\font-awesome.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\font-awesome.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\icomoon.css",
+      "PackagePath": "staticwebassets\\Template\\css\\icomoon.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\jquery-ui.css",
+      "PackagePath": "staticwebassets\\Template\\css\\jquery-ui.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\jquery.fancybox.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\jquery.fancybox.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\jquery.mCustomScrollbar.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\jquery.mCustomScrollbar.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\meanmenu.css",
+      "PackagePath": "staticwebassets\\Template\\css\\meanmenu.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\nice-select.css",
+      "PackagePath": "staticwebassets\\Template\\css\\nice-select.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\normalize.css",
+      "PackagePath": "staticwebassets\\Template\\css\\normalize.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\owl.carousel.min.css",
+      "PackagePath": "staticwebassets\\Template\\css\\owl.carousel.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\responsive.css",
+      "PackagePath": "staticwebassets\\Template\\css\\responsive.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\slick.css",
+      "PackagePath": "staticwebassets\\Template\\css\\slick.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\css\\style.css",
+      "PackagePath": "staticwebassets\\Template\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\bk.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\bk.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\img.png",
+      "PackagePath": "staticwebassets\\Template\\images\\img.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\loading.gif",
+      "PackagePath": "staticwebassets\\Template\\images\\loading.gif"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\logo.png",
+      "PackagePath": "staticwebassets\\Template\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\s1.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\s1.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\s2.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\s2.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\s3.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\s3.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\s4.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\s4.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\s5.jpeg",
+      "PackagePath": "staticwebassets\\Template\\images\\s5.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service1.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service1.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service2.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service2.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service3.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service3.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service4.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service4.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service5.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service5.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\service6.png",
+      "PackagePath": "staticwebassets\\Template\\images\\service6.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\web.jpg",
+      "PackagePath": "staticwebassets\\Template\\images\\web.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\why1.png",
+      "PackagePath": "staticwebassets\\Template\\images\\why1.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\why2.png",
+      "PackagePath": "staticwebassets\\Template\\images\\why2.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\images\\why3.png",
+      "PackagePath": "staticwebassets\\Template\\images\\why3.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\Template\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\custom.js",
+      "PackagePath": "staticwebassets\\Template\\js\\custom.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\jquery-3.0.0.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\jquery-3.0.0.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\jquery.mCustomScrollbar.concat.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\jquery.mCustomScrollbar.concat.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\jquery.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\Template\\js\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\modernizer.js",
+      "PackagePath": "staticwebassets\\Template\\js\\modernizer.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\plugin.js",
+      "PackagePath": "staticwebassets\\Template\\js\\plugin.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\popper.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\popper.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\coloredbg.png",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\coloredbg.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\gridtile.png",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\gridtile.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\gridtile_3x3.png",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\gridtile_3x3.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\gridtile_3x3_white.png",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\gridtile_3x3_white.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\gridtile_white.png",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\gridtile_white.png"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\assets\\loader.gif",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\assets\\loader.gif"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\css\\closedhand.html",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\css\\closedhand.html"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\css\\layers.css",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\css\\layers.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\css\\navigation.css",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\css\\navigation.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\css\\openhand.html",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\css\\openhand.html"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\css\\settings.css",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\css\\settings.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\css\\pe-icon-7-stroke.css",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\css\\pe-icon-7-stroke.css"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.eot",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.eot"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.svg",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.svg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.ttf",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.ttf"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.woff",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-strokebb1d.woff"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-stroked41d.eot",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\pe-icon-7-stroke\\fonts\\Pe-icon-7-stroked41d.eot"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.eot",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.eot"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.svg",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.svg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.ttf",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.ttf"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.woff",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\fonts\\revicons\\revicons90c6.woff"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.actions.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.actions.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.carousel.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.carousel.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.kenburn.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.kenburn.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.layeranimation.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.layeranimation.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.migration.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.migration.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.navigation.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.navigation.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.parallax.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.parallax.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.slideanims.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.slideanims.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\extensions\\revolution.extension.video.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\extensions\\revolution.extension.video.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\jquery.themepunch.revolution.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\jquery.themepunch.revolution.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\revolution\\js\\jquery.themepunch.tools.min.js",
+      "PackagePath": "staticwebassets\\Template\\js\\revolution\\js\\jquery.themepunch.tools.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\Template\\js\\slider-setting.js",
+      "PackagePath": "staticwebassets\\Template\\js\\slider-setting.js"
+    },
+    {
       "Id": "C:\\Users\\ADMIN\\source\\repos\\Survey-Feedback App\\Survey-Feedback App\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

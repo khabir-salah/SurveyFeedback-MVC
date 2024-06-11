@@ -3,6 +3,7 @@
     public enum Types
     {
         SingleChoice = 1,
-        MultiChoice 
+        MultiChoice,
+        Text
     }
 }

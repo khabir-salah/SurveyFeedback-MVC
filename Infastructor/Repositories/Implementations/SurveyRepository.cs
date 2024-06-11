@@ -1,6 +1,6 @@
-﻿using Survey_Feedback_App.Core.Application.Interfaces.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using Survey_Feedback_App.Core.Application.Interfaces.Repository;
 using Survey_Feedback_App.Core.Domain.Entities;
-using Survey_Feedback_App.Core.Domain.Enum;
 using Survey_Feedback_App.Infastructor.Context;
 
 namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
@@ -12,61 +12,41 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
         { 
             _context = context;
         }
-        public int Add(Survey survey)
+        public Survey Add(Survey survey)
         {
             _context.Surveys.Add(survey);
-            return _context.SaveChanges();
+            return survey;
         }
 
-        public Survey? Get(int Id)
+        public Survey GetById(string Id)
         {
-            var survey = _context.Surveys.FirstOrDefault( s => s.SurveyId == Id);
+            var survey = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).FirstOrDefault( s => s.Id == Id);
             return survey;
         }
 
         public ICollection<Survey> GetAll()
         {
-            var surveys = _context.Surveys.Select(s => new Survey
-            {
-                SurveyId = s.SurveyId,
-                Feedbacks = s.Feedbacks,
-                Questions = s.Questions,
-                status  = s.status,
-                Title = s.Title,
-                TmeCreated = s.TmeCreated,
-                User = s.User,
-                UsersRegId = s.UsersRegId,
-            }).ToList();
+            var surveys = _context.Surveys.Include(s => s.Questions).ToList();
             return surveys;
         }
 
        
 
-        public ICollection<Survey> GetByUser(int Id)
+        public ICollection<Survey> GetByUser(string Id)
         {
-            var surveys = _context.Surveys.Where(s => s.UsersRegId == Id).ToList();
+            var surveys = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).Where(s => s.UsersRegId == Id).ToList();
             return surveys;
         }
 
-       
-
-       
-
-       
-
-        public bool IsDelete(int Id)
+        public void IsDelete(string Id)
         {
-            var survey = _context.Surveys.FirstOrDefault(s => s.SurveyId == Id);
+            var survey = _context.Surveys.Include(s => s.Questions).FirstOrDefault(s => s.Id == Id);
             _context.Surveys.Remove(survey);
-            if(_context.SaveChanges() > 0)
-            {
-                return true;
-            }
-            return false ;
         }
 
-        
-
-        
+        public void Update(Survey survey)
+        {
+            _context.Update(survey);
+        }
     }
 }

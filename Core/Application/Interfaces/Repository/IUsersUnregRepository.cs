@@ -1,4 +1,5 @@
 ﻿using Survey_Feedback_App.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
 {
@@ -6,7 +7,8 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
     {
         ICollection<UsersUnreg> GetAll();
 
-        int Add(UsersUnreg unRegistered);
-        UsersUnreg Get(int Id);
+        UsersUnreg Add(UsersUnreg unRegistered);
+        UsersUnreg Get(Expression<Func<UsersUnreg, bool>> predicate);
+
     }
 }

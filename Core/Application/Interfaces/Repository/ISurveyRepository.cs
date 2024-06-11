@@ -5,10 +5,11 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
 {
     public interface ISurveyRepository
     {
-        int Add(Survey survey);
+        Survey Add(Survey survey);
         ICollection<Survey> GetAll();
-        ICollection<Survey> GetByUser(int Id);
-        bool IsDelete(int Id);
-        Survey Get(int Id);
+        ICollection<Survey> GetByUser(string Id);
+        void IsDelete(string Id);
+        Survey GetById(string Id);
+        public void Update(Survey survey);
     }
 }

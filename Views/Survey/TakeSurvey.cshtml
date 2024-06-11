@@ -1,0 +1,220 @@
+﻿@*
+@{
+    ViewData["Title"] = "Take Survey";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2>@Model.Title</h2>
+        @using (Html.BeginForm("TakeSurvey", "Survey", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.SurveyId)
+            @for (int i = 0; i < Model.Questions.Count; i++)
+            {
+                <div class="form-group">
+                    <label>@Model.Questions[i].Text</label>
+                    @Html.HiddenFor(m => m.Questions[i].QuestionId)
+                    @Html.HiddenFor(m => m.Questions[i].Type)
+                    if (Model.Questions[i].Type == "text")
+                    {
+                    @Html.TextBoxFor(m => m.Questions[i].Response, new { @class = "form-control" })
+                    }
+                    else if (Model.Questions[i].Type == "radio")
+                    {
+                    foreach (var option in Model.Questions[i].Options)
+                    {
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            @Html.RadioButtonFor(m => m.Questions[i].Response, option.OptionId, new { @class = "form-check-input" })
+                            @option.Text
+                        </label>
+                    </div>
+                    }
+                    }
+                    else if (Model.Questions[i].Type == "checkbox")
+                    {
+                    foreach (var option in Model.Questions[i].Options)
+                    {
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            @Html.CheckBoxFor(m => m.Questions[i].SelectedOptions, new { @value = option.OptionId, @class = "form-check-input" })
+                            @option.Text
+                        </label>
+                    </div>
+                    }
+                    }
+                </div>
+            }
+            <button type="submit" class="btn btn-primary">Submit</button>
+        }
+    </div>
+</body>
+</html> *@
+
+
+@model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveyResponseModel
+
+
+@{
+    ViewData["Title"] = "Create Survey";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h2>Create Survey</h2>
+            <p>Add your questions below.</p>
+        </div>
+        @using (Html.BeginForm("CreateSurvey", "Survey", FormMethod.Post, new { id = "surveyForm" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Enter survey title" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Upload)
+                @Html.TextBoxFor(m => m.Upload, new { @class = "form-control", placeholder = "Upload link" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.EndTime)
+                @Html.TextBoxFor(m => m.EndTime, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local" })
+            </div>
+
+            <div id="questionsContainer">
+                @if (Model.Questions != null && Model.Questions.Count > 0)
+                {
+                    for (int i = 0; i < Model.Questions.Count; i++)
+                    {
+                        <div class="form-group">
+                            <label>Question @(i + 1)</label>
+                            @Html.TextBoxFor(m => m.Questions[i].Text, new { @class = "form-control", placeholder = "Enter your question" })
+                            @Html.DropDownListFor(m => m.Questions[i].Type, new SelectList(new List<string> { "text", "radio", "checkbox" }), new { @class = "form-control mb-2" })
+
+                            <div>
+                                @for (int j = 0; j < Model.Questions[i].Options.Count; j++)
+                                {
+                                    <div class="form-check">
+                                        @Html.TextBoxFor(m => m.Questions[i].Options[j].Text, new { @class = "form-control", placeholder = $"Option {j + 1} text" })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <button type="button" class="btn btn-secondary mb-3" onclick="addQuestion()">Add Question</button>
+            <button type="submit" class="btn btn-primary">Submit Survey</button>
+        }
+        <div id="surveyLinkContainer" class="mt-3" style="display:none;">
+            <p>Survey created successfully! Share this link:</p>
+            <a id="surveyLink" href="#" target="_blank"></a>
+        </div>
+    </div>
+
+    <script>
+        let questionCount = @Model.Questions.Count;
+
+        function addQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const questionIndex = questionCount++;
+            const questionHtml = `
+                <div class="form-group">
+                    <label>Question ${questionIndex + 1}</label>
+                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" placeholder="Enter your question" />
+                    <select name="Questions[${questionIndex}].Type" class="form-control mb-2">
+                        <option value="text">Text</option>
+                        <option value="radio">Multiple Choice (Radio)</option>
+                        <option value="checkbox">Multiple Choice (Checkbox)</option>
+                    </select>
+                    <div id="optionsContainer${questionIndex}"></div>
+                    <input type="button" value="Add Option" class="btn btn-link" onclick="addOption(${questionIndex})" />
+                </div>
+            `;
+            container.innerHTML += questionHtml;
+        }
+
+        function addOption(questionIndex) {
+            const optionsContainer = document.getElementById('optionsContainer' + questionIndex);
+            const optionCount = optionsContainer.getElementsByClassName('form-check').length;
+            const optionHtml = `
+                <div class="form-check">
+                    <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].Text" class="form-control" placeholder="Option ${optionCount + 1} text" />
+                </div>
+            `;
+            optionsContainer.innerHTML += optionHtml;
+        }
+
+        document.getElementById('surveyForm').onsubmit = function (event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const jsonData = Object.fromEntries(formData.entries());
+            jsonData.Questions = [];
+            
+            formData.forEach((value, key) => {
+                if (key.startsWith('Questions[')) {
+                    const matches = key.match(/Questions\[(\d+)]\.(\w+)/);
+                    if (matches) {
+                        const index = matches[1];
+                        const field = matches[2];
+                        
+                        if (!jsonData.Questions[index]) {
+                            jsonData.Questions[index] = {};
+                        }
+                        
+                        if (field === 'Options') {
+                            if (!jsonData.Questions[index].Options) {
+                                jsonData.Questions[index].Options = [];
+                            }
+                            jsonData.Questions[index].Options.push(value);
+                        } else {
+                            jsonData.Questions[index][field] = value;
+                        }
+                    }
+                } else {
+                    jsonData[key] = value;
+                }
+            });
+
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.IsSuccessfull) {
+                    document.getElementById('surveyLink').href = data.Data;
+                    document.getElementById('surveyLink').innerText = data.Data;
+                    document.getElementById('surveyLinkContainer').style.display = 'block';
+                } else {
+                    alert('There was an error creating the survey.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        };
+    </script>
+</body>
+</html>
+
+

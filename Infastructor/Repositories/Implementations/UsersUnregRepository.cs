@@ -1,6 +1,7 @@
 ﻿using Survey_Feedback_App.Core.Application.Interfaces.Repository;
 using Survey_Feedback_App.Core.Domain.Entities;
 using Survey_Feedback_App.Infastructor.Context;
+using System.Linq.Expressions;
 
 namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
 {
@@ -12,25 +13,21 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             _context = context;
         }
 
-        public int Add(UsersUnreg unRegistered)
+        public UsersUnreg Add(UsersUnreg unRegistered)
         {
             _context.UsersUnregs.Add(unRegistered);
-            return _context.SaveChanges();
+            return unRegistered;
         }
 
-        public UsersUnreg? Get(int Id)
+       public UsersUnreg Get(Expression<Func<UsersUnreg, bool>> predicate)
         {
-           var user = _context.UsersUnregs.FirstOrDefault(u => u.UsersUnregId == Id);
+            var user = _context.UsersUnregs.FirstOrDefault(predicate);
             return user;
         }
 
         public ICollection<UsersUnreg> GetAll()
         {
-            var users = _context.UsersUnregs.Select(u => new UsersUnreg
-            {
-                UsersUnregId = u.UsersUnregId,
-                Email = u.Email,
-            }).ToList();
+            var users = _context.UsersUnregs.ToList();
             return users;
         }
 
