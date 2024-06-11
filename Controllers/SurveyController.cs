@@ -45,9 +45,13 @@ namespace Survey_Feedback_App.Controllers
             return View(model);
         }
 
-        public IActionResult TakeSurvey(string id)
+        public IActionResult TakeSurvey(string link)
         {
-           var survey = _responseService.TakeSurvey(id);
+            link = Uri.UnescapeDataString(link);
+
+            // Extract survey ID from the link
+            var linkId = link.Split('/').Last();
+            var survey = _responseService.TakeSurvey(linkId);
             return View(survey);
         }
         [HttpPost]

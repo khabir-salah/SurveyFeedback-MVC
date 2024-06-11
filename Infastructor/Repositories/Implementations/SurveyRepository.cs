@@ -18,9 +18,15 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return survey;
         }
 
+        public Survey GetByLink(string Id)
+        {
+            var survey = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).FirstOrDefault( s => s.UniqueLink == Id);
+            return survey;
+        }
+
         public Survey GetById(string Id)
         {
-            var survey = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).FirstOrDefault( s => s.Id == Id);
+            var survey = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).FirstOrDefault(s => s.Id == Id);
             return survey;
         }
 

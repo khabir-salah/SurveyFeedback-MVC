@@ -13,13 +13,14 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
         }
         public SurveyResponse Add(SurveyResponse response)
         {
-            _context.Responses.Add(response);
+            //_context.Responses.Add(response);
             return response;
         }
 
         public SurveyResponse? Get(string id)
         {
-           return  _context.Responses.Find(id);
+            //return  _context.Responses.Find(id);
+            return null;
         }
     }
 }

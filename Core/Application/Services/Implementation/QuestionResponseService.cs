@@ -6,13 +6,13 @@ using Survey_Feedback_App.Core.Domain.Entities;
 
 namespace Survey_Feedback_App.Core.Application.Services.Implementation
 {
-    public class ResponseService : IQuestionResponseService
+    public class QuestionResponseService : IQuestionResponseService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IQuestionResponseRepository _responseRepo;
         private readonly ISurveyRepository _surveyRepo;
 
-        public ResponseService(IQuestionResponseRepository responseRepo, IUnitOfWork unitOfWork)
+        public QuestionResponseService(IQuestionResponseRepository responseRepo, IUnitOfWork unitOfWork)
         {
             _responseRepo = responseRepo;
             _unitOfWork = unitOfWork;

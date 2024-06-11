@@ -2,6 +2,6 @@
 {
     public class Auditables
     {
-        public string Id { get; set; } = new Guid().ToString().Substring(1, 5);
+        public string Id { get; set; } = Guid.NewGuid().ToString().Substring(0,6);
     }
 }

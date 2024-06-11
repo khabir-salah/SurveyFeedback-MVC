@@ -64,7 +64,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 };
 
             _questionRepo.Add(question);
-             // Add the Question to the repository
+
                 if (questionVm.Options != null)
                 {
                     foreach (var optionText in questionVm.Options)

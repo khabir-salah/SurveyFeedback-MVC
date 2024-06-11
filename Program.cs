@@ -56,6 +56,13 @@ namespace Survey_Feedback_App
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "takeSurvey",
+                pattern: "Survey/TakeSurvey/{link}",
+                defaults: new { controller = "Survey", action = "TakeSurvey" });
+
+
+
 
             app.Run();
         }

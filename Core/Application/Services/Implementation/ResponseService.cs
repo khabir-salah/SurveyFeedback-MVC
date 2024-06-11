@@ -12,10 +12,11 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         private readonly IResponseRepository _responseRepo;
         private readonly ISurveyRepository _surveyRepo;
 
-        public ResponseService(IResponseRepository responseRepo, IUnitOfWork unitOfWork)
+        public ResponseService(IResponseRepository responseRepo, IUnitOfWork unitOfWork, ISurveyRepository surveyRepo)
         {
             _responseRepo = responseRepo;
             _unitOfWork = unitOfWork;
+            _surveyRepo = surveyRepo;
         }
 
         public void AddResponse(SurveyResponseModel response)
@@ -41,7 +42,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         public BaseResponse<SurveyResponseModel> TakeSurvey(string Id)
         {
-           var getSurvey = _surveyRepo.GetById(Id);
+           var getSurvey = _surveyRepo.GetByLink(Id);
             if (getSurvey != null)
             {
                 var surveyResponse = new SurveyResponseModel
@@ -65,7 +66,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 return new BaseResponse<SurveyResponseModel>
                 {
                     IsSuccessfull = true,
-                    message = "Survey Created Successfully",
+                    message = "View Page",
                     Data = surveyResponse
                 };
             }
