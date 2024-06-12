@@ -70,9 +70,9 @@ namespace Survey_Feedback_App.Controllers
             return View();
         }
 
-        public IActionResult UserDashBoard(UsersRegResponseModel request)
+        public IActionResult UserDashBoard()
         {
-            return View(request);
+            return View();
         }
 
         public IActionResult LogOut()

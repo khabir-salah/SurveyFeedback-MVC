@@ -2,6 +2,7 @@
 using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
 using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
 using Survey_Feedback_App.Core.Application.Interfaces.Service;
+using Survey_Feedback_App.Core.Application.Services.Implementation;
 using Survey_Feedback_App.Core.Domain.Entities;
 
 namespace Survey_Feedback_App.Controllers
@@ -10,10 +11,12 @@ namespace Survey_Feedback_App.Controllers
     {
         private readonly ICreateSurveyService _createService;
         private readonly IResponseService _responseService;
-        public SurveyController(ICreateSurveyService createService, IResponseService responseService)
+        private readonly IIdentityService _identity;
+        public SurveyController(ICreateSurveyService createService, IResponseService responseService, IIdentityService identity)
         {
             _createService = createService;
             _responseService = responseService;
+            _identity = identity;
         }
 
         public IActionResult Index()
@@ -28,7 +31,7 @@ namespace Survey_Feedback_App.Controllers
             if(survey.IsSuccessfull)
             {
                 TempData["Message"] = survey.message;
-                return Json(Url.Action("TakeSurvey", "Survey", new { id = survey.Data }, Request.Scheme));
+                return Json(Url.Action("TakeSurvey", "Survey", new { link = survey.Data }, Request.Scheme));
             }
             TempData["Message"] = survey.message;
             return View(request);
@@ -52,22 +55,14 @@ namespace Survey_Feedback_App.Controllers
             // Extract survey ID from the link
             var linkId = link.Split('/').Last();
             var survey = _responseService.TakeSurvey(linkId);
-            return View(survey);
+            return View(survey.Data);
         }
         [HttpPost]
-        public IActionResult TakeSurvey(SurveyResponseModel model)
+        public IActionResult TakeSurvey(ResponseModel model)
         {
             if (ModelState.IsValid)
             {
-                var response = new SurveyResponse
-                {
-                    SurveyId = model.SurveyId,
-                    QuestionResponses = model.Questions.Select(q => new QuestionResponse
-                    {
-                        QuestionId = q.QuestionId,
-                        Response = q.Type == Core.Domain.Enum.Types.Text ? q.Response : string.Join(",", q.SelectedOptions)
-                    }).ToList()
-                };
+               
 
                 _responseService.AddResponse(model);
 
@@ -80,6 +75,13 @@ namespace Survey_Feedback_App.Controllers
         {
             return View();
         }
+
+        public IActionResult UserSurvey()
+        {
+            var survey = _createService.GetUserSurvey(_identity.GetCurrentUser().Id);
+            return View(survey.Data);
+        }
+
 
 
 

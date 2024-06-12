@@ -18,22 +18,6 @@ namespace Survey_Feedback_App.Infastructor.Context
         public DbSet<Option> Options => Set<Option>();
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            // Configure Survey-Question relationship
-            modelBuilder.Entity<Question>()
-                .HasOne(q => q.Surveys)
-                .WithMany(s => s.Questions)
-                .HasForeignKey(q => q.SurveyId);
-
-            // Configure Question-Option relationship
-            modelBuilder.Entity<Option>()
-                .HasOne(o => o.Question)
-                .WithMany(q => q.Options)
-                .HasForeignKey(o => o.QuestionId);
-        }
 
     }
 }

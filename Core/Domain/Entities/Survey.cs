@@ -11,7 +11,6 @@ namespace Survey_Feedback_App.Core.Domain.Entities
         public DateTime TmeCreated { get; set; }
         public DateTime EndTime { get; set; }
         public Status Status { get; set; }
-        public string UniqueLink { get; set; } = default!;
         public string? Upload { get; set; }
         public ICollection<Question> Questions { get; set; } = new List<Question>();
     }

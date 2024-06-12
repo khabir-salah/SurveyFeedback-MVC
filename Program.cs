@@ -22,9 +22,11 @@ namespace Survey_Feedback_App
                 option => option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             builder.Services.AddScoped<ICreateSurveyService, CreateSurveyService>();
             builder.Services.AddScoped<ISurveyRepository , SurveyRepository>();
-            builder.Services.AddScoped<IIdentityService , IdentityService>();
+            builder.Services.AddScoped<IIdentityService, IdentityService>();
             builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddScoped<IResponseService, ResponseService>();
+            builder.Services.AddScoped<IResponseRepository, ResponseRepository>();
             builder.Services.AddScoped<IUsersRegRepository, UsersRegRepository>();
             builder.Services.AddScoped<IOptionRepository, OptionRepository>();
             builder.Services.AddScoped<IUsersUnregRepository, UsersUnregRepository>();

@@ -6,6 +6,8 @@ using Survey_Feedback_App.Core.Domain.Entities;
 using Survey_Feedback_App.Core.Domain.Enum;
 using System;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Survey_Feedback_App.Core.Application.Services.Implementation
 {
@@ -49,7 +51,6 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 TmeCreated = DateTime.Now,
                 EndTime = model.EndTime,
                 UsersRegId = _identity.GetCurrentUser().Id,
-                UniqueLink = Guid.NewGuid().ToString(),
                 Status = Domain.Enum.Status.Pending
             };
 
@@ -86,10 +87,25 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             {
                 IsSuccessfull = true,
                 message = "Created Successfully",
-                Data = $"http://localhost7224/survey/{survey.UniqueLink}"
+                Data = $"http://localhost7224/survey/{survey.Id}"
             };
 
-            
+        }
+
+        public BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id)
+        {
+            var userSurvey = _surveyRepo.GetByUser(id);
+
+
+                return new BaseResponse<ICollection<SurveyResponseModel>>
+                {
+                    IsSuccessfull = true,
+                    message = "List of survey",
+                    Data = userSurvey.Select(s => new SurveyResponseModel
+                    {
+                        SurveyId = s.Id
+                    }).ToList()
+                };
         }
 
 

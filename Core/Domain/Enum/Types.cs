@@ -2,8 +2,8 @@
 {
     public enum Types
     {
-        SingleChoice = 1,
-        MultiChoice,
+        Radio = 1,
+        Checkbox,
         Text
     }
 }

@@ -19,7 +19,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             _surveyRepo = surveyRepo;
         }
 
-        public void AddResponse(SurveyResponseModel response)
+        public void AddResponse(ResponseModel response)
         {
             var feedback = new SurveyResponse
             {
@@ -42,7 +42,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         public BaseResponse<SurveyResponseModel> TakeSurvey(string Id)
         {
-           var getSurvey = _surveyRepo.GetByLink(Id);
+           var getSurvey = _surveyRepo.GetById(Id);
             if (getSurvey != null)
             {
                 var surveyResponse = new SurveyResponseModel
@@ -77,5 +77,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 Data = null
             };
         }
+
+       
     }
 }

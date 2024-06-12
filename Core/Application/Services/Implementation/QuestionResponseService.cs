@@ -45,42 +45,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public BaseResponse<SurveyResponseModel> TakeSurvey(string Id)
-        {
-           var getSurvey = _surveyRepo.GetById(Id);
-            if (getSurvey != null)
-            {
-                var surveyResponse = new SurveyResponseModel
-                {
-                    SurveyId = getSurvey.Id,
-                    Title = getSurvey.Title,
-                    UsersUnregId = getSurvey.UsersRegId,
-                    Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
-                    {
-                        QuestionId = q.Id,
-                        Text = q.Text,
-                        Type = q.Type,
-                        Options = q.Options.Select(o => new OptionResponseModel
-                        {
-                            OptionId = o.Id,
-                            Text = o.Text
-                        }).ToList()
-
-                    }).ToList()
-                };
-                return new BaseResponse<SurveyResponseModel>
-                {
-                    IsSuccessfull = true,
-                    message = "Survey Created Successfully",
-                    Data = surveyResponse
-                };
-            }
-            return new BaseResponse<SurveyResponseModel>
-            {
-                IsSuccessfull = false,
-                message = "Failed",
-                Data = null
-            };
-        }
+       
+        
     }
 }

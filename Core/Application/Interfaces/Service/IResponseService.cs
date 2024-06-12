@@ -7,6 +7,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
     {
         BaseResponse<SurveyResponseModel> TakeSurvey(string Id);
         BaseResponse<SurveyResponseModel> GetResponse(int Id);
-        void AddResponse(SurveyResponseModel response);
+        void AddResponse(ResponseModel response);
     }
 }
