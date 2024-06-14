@@ -23,7 +23,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             _userUnreg = userUnreg;
         }
 
-        public BaseResponse<ResponseModel> AddResponse(ResponseModel response, string email)
+        public BaseResponse<SurveyResponseModel> AddResponse(SurveyResponseModel response, string email)
         {
             var getUser = _userUnreg.Get(s => s.Email == email);
             if (getUser == null)
@@ -42,7 +42,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             };
             _responseRepo.Add(feedback);
             _unitOfWork.Save();
-            return new BaseResponse<ResponseModel>
+            return new BaseResponse<SurveyResponseModel>
             {
                 IsSuccessfull = true,
                 message = "Feedback submitted successfully"

@@ -8,6 +8,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
         BaseResponse<SurveyResponseModel> TakeSurvey(string Id);
         bool IsFeedbackExist(string UserId, string SurveyId);
 
-        BaseResponse<ResponseModel> AddResponse(ResponseModel response, string email);
+        BaseResponse<SurveyResponseModel> AddResponse(SurveyResponseModel response, string email);
     }
 }
