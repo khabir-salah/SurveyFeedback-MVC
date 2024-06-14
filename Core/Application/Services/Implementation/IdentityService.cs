@@ -150,9 +150,9 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             };
         }
 
-        public BaseResponse<UsersUnregResponseModel> Add(UsersUnregRequestModel request)
+        public BaseResponse<UsersUnregResponseModel> Add(string email)
         {
-            var isExist = IsUserExist(request.Email);
+            var isExist = IsUserExist(email);
             if (isExist)
             {
                 return new BaseResponse<UsersUnregResponseModel>
@@ -164,7 +164,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             }
             var user = new UsersUnreg
             {
-                Email = request.Email,
+                Email = email,
             };
             _userRepo.Add(user);
             _unitOfWork.Save();

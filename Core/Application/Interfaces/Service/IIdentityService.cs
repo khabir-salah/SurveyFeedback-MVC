@@ -13,7 +13,7 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 
 
         BaseResponse<UsersRegResponseModel> Get(string email);
-        BaseResponse<UsersUnregResponseModel> Add(UsersUnregRequestModel request);
+        BaseResponse<UsersUnregResponseModel> Add(string email);
         UsersReg GetCurrentUser();
 
 

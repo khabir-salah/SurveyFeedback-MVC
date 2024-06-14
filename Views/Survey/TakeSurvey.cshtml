@@ -1,9 +1,5 @@
 ﻿@using Survey_Feedback_App.Core.Domain.Enum;
-@model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveyResponseModel
-
-@{
-    ViewData["Title"] = "Take Survey";
-}
+@model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveyFeedbackViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,57 +11,58 @@
 </head>
 <body>
     <div class="container">
-        <h2>@Model.Title</h2>
+        <h2>@Model.Survey?.Title ?? "Survey Feedback"</h2>
 
-        <!-- Add email input field -->
-        <div class="form-group">
-            <label for="inputEmail">Email Address</label>
-            <input type="email" id="inputEmail" name="EmailAddress" class="form-control" required>
-        </div>
-
-        @using (Html.BeginForm("TakeSurvey", "Survey", FormMethod.Post))
+        @if (Model.ShowSurveyForm)
         {
-            @Html.HiddenFor(m => m.SurveyId)
-            @Html.HiddenFor(m => m.UsersUnregId)
-
-            @for (int i = 0; i < Model.Questions.Count; i++)
+            @using (Html.BeginForm("SubmitFeedback", "Survey", FormMethod.Post))
             {
-                <div class="form-group">
-                    <label>@Model.Questions[i].Text</label>
-                    @Html.HiddenFor(m => m.Questions[i].QuestionId)
-                    @Html.HiddenFor(m => m.Questions[i].Type)
+                @Html.HiddenFor(m => m.Survey.SurveyId)
+                @Html.HiddenFor(m => m.Survey.UsersUnregId)
 
-                    @if (Model.Questions[i].Type == Types.Text)
-                    {
-                        @Html.TextBoxFor(m => m.Questions[i].Response, new { @class = "form-control" })
-                    }
-                    else if (Model.Questions[i].Type == Types.Radio)
-                    {
-                        @foreach (var option in Model.Questions[i].Options)
+                @for (int i = 0; i < Model.Survey.Questions.Count; i++)
+                {
+                    <div class="form-group">
+                        <label>@Model.Survey.Questions[i].Text</label>
+                        @Html.HiddenFor(m => m.Survey.Questions[i].QuestionId)
+                        @Html.HiddenFor(m => m.Survey.Questions[i].Type)
+
+                        @if (Model.Survey.Questions[i].Type == Types.Text)
                         {
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    @Html.RadioButtonFor(m => m.Questions[i].Response, option.OptionId, new { @class = "form-check-input" })
-                                    @option.Text
-                                </label>
-                            </div>
+                            @Html.TextBoxFor(m => m.Survey.Questions[i].Response, new { @class = "form-control" })
                         }
-                    }
-                    else if (Model.Questions[i].Type == Types.Checkbox)
-                    {
-                        @foreach (var option in Model.Questions[i].Options)
+                        else if (Model.Survey.Questions[i].Type == Types.Radio)
                         {
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" name="Questions[@i].SelectedOptions" value="@option.OptionId" class="form-check-input" />
-                                    @option.Text
-                                </label>
-                            </div>
+                            @foreach (var option in Model.Survey.Questions[i].Options)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.RadioButtonFor(m => m.Survey.Questions[i].Response, option.OptionId, new { @class = "form-check-input" })
+                                        @option.Text
+                                    </label>
+                                </div>
+                            }
                         }
-                    }
-                </div>
+                        else if (Model.Survey.Questions[i].Type == Types.Checkbox)
+                        {
+                            @foreach (var option in Model.Survey.Questions[i].Options)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" name="Survey.Questions[@i].SelectedOptions" value="@option.OptionId" class="form-check-input" />
+                                        @option.Text
+                                    </label>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+                <button type="submit" class="btn btn-primary">Submit</button>
             }
-            <button type="submit" class="btn btn-primary">Submit</button>
+        }
+        else
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
         }
     </div>
 </body>

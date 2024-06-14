@@ -10,6 +10,6 @@ namespace Survey_Feedback_App.Core.Application.DTOs.ResponseDTO
         public string UsersUnregId { get; set; }
         public string SurveyId { get; set; }
         public string Title { get; set; }
-        public List<QuestionResponseModel> Questions { get; set; } = new List<QuestionResponseModel>();
+        public List<QuestionResponseModel> Questions { get; set; } 
     }
 }

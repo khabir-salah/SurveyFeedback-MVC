@@ -55,25 +55,62 @@ namespace Survey_Feedback_App.Controllers
             // Extract survey ID from the link
             var linkId = link.Split('/').Last();
             var survey = _responseService.TakeSurvey(linkId);
-            return View(survey.Data);
-        }
-        [HttpPost]
-        public IActionResult TakeSurvey(ResponseModel model)
-        {
-            if (ModelState.IsValid)
+            if(!survey.IsSuccessfull)
             {
-               
-
-                _responseService.AddResponse(model);
-
-                return RedirectToAction("SurveySubmitted");
+                TempData["Message"] = survey.message;
+                return View(new SurveyFeedbackViewModel { ErrorMessage = survey.message, ShowSurveyForm = false });
             }
+            return View(new SurveyFeedbackViewModel { Survey = survey.Data, ShowSurveyForm = true });
+        }
+
+
+        [HttpPost]
+        public IActionResult TakeSurvey(SurveyFeedbackViewModel model)
+        {
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                model.ErrorMessage = "Invalid email address.";
+                model.ShowSurveyForm = false;
+                return View(model);
+            }
+            if (_responseService.IsFeedbackExist(model.Email, model.Survey.SurveyId))
+            {
+                model.ErrorMessage = "You have already given feedback for this survey.";
+                model.ShowSurveyForm = false;
+                return View(model);
+            }
+            
+            model.ShowSurveyForm = true;
             return View(model);
         }
+
 
         public IActionResult SurveySubmitted()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SubmitFeedback(SurveyFeedbackViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Handle the survey feedback submission
+                var result = _responseService.AddResponse(model.Survey, model.Email);
+
+                if (result.IsSuccessfull)
+                {
+                    TempData["Message"] = "Thank you for your feedback!";
+                    return RedirectToAction("ThankYou");
+                }
+
+                model.ErrorMessage = result.message;
+                model.ShowSurveyForm = true;
+                return View("TakeSurvey", model);
+            }
+
+            model.ShowSurveyForm = true;
+            return View("TakeSurvey", model);
         }
 
         public IActionResult UserSurvey()
