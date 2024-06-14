@@ -6,7 +6,8 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
     public interface IResponseService
     {
         BaseResponse<SurveyResponseModel> TakeSurvey(string Id);
-        BaseResponse<SurveyResponseModel> GetResponse(int Id);
+        bool IsFeedbackExist(string UserId, string SurveyId);
+
         void AddResponse(ResponseModel response);
     }
 }

@@ -35,9 +35,10 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             _unitOfWork.Save();
         }
 
-        public BaseResponse<SurveyResponseModel> GetResponse(int Id)
+        public bool IsFeedbackExist(string UserId,  string SurveyId)
         {
-            throw new NotImplementedException();
+            var checkEmail = _surveyRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == UserId).Any();
+            if (checkEmail) return true; else return false;
         }
 
         public BaseResponse<SurveyResponseModel> TakeSurvey(string Id)
