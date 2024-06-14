@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Survey_Feedback_App.Infastructor.Context;
 
@@ -11,9 +12,11 @@ using Survey_Feedback_App.Infastructor.Context;
 namespace Survey_Feedback_App.Migrations
 {
     [DbContext(typeof(SurveyFeedbackContext))]
-    partial class SurveyFeedbackContextModelSnapshot : ModelSnapshot
+    [Migration("20240612091636_eight-initial")]
+    partial class eightinitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
