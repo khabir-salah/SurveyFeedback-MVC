@@ -47,21 +47,30 @@ namespace Survey_Feedback_App.Controllers
             };
             return View(model);
         }
-
+        
         public IActionResult TakeSurvey(string link)
         {
             link = Uri.UnescapeDataString(link);
-
             // Extract survey ID from the link
-            var linkId = link.Split('/').Last();
-            var survey = _responseService.TakeSurvey(linkId);
-            if(!survey.IsSuccessfull)
+             var linkId = link.Split('/').Last();
+            var surveyResponse = _responseService.ViewSurvey(linkId);
+
+            var model = new SurveyFeedbackViewModel();
+            if (surveyResponse.IsSuccessfull)
             {
-                TempData["Message"] = survey.message;
-                return View(new SurveyFeedbackViewModel { ErrorMessage = survey.message, ShowSurveyForm = false });
+                model.Survey = surveyResponse.Data;
+                model.SurveyId = linkId;
+                model.ShowSurveyForm = false; // Initially show email input form
             }
-            return View(new SurveyFeedbackViewModel { Survey = survey.Data, ShowSurveyForm = true });
+            else
+            {
+                TempData["Message"] = surveyResponse.message;
+                model.ErrorMessage = surveyResponse.message;
+            }
+
+            return View(model);
         }
+
 
 
         [HttpPost]
@@ -73,35 +82,68 @@ namespace Survey_Feedback_App.Controllers
                 model.ShowSurveyForm = false;
                 return View(model);
             }
-            if (_responseService.IsFeedbackExist(model.Email, model.Survey.SurveyId))
+           
+            var surveyResponse = _responseService.ViewSurvey(model.SurveyId);
+            if (surveyResponse == null || surveyResponse.Data == null)
+            {
+                model.ErrorMessage = surveyResponse?.message ?? "An error occurred while retrieving the survey.";
+                model.ShowSurveyForm = false;
+            }
+
+            else if (!_responseService.IsFeedbackExist(model.Email, model.SurveyId))
+            {
+                model.Survey = surveyResponse.Data;
+                model.ShowSurveyForm = true;
+            }
+            else
             {
                 model.ErrorMessage = "You have already given feedback for this survey.";
                 model.ShowSurveyForm = false;
-                return View(model);
             }
-            
-            model.ShowSurveyForm = true;
             return View(model);
         }
 
 
-        public IActionResult SurveySubmitted()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteSurvey(string surveyId)
         {
-            return View();
+            
+            var delete = _responseService.IsDelete(surveyId);
+            if (delete)
+                TempData["Message"] = "Survey deleted successfully!";
+            else TempData["Message"] = "failed to DELETE survey";
+            return RedirectToAction("UserSurvey");
         }
+
+
+        public IActionResult ViewSurvey(string link)
+        {
+            link = Uri.UnescapeDataString(link);
+            // Extract survey ID from the link
+            var linkId = link.Split('/').Last();
+            var surveyResponse = _responseService.ViewSurvey(linkId);
+            var model = new SurveyFeedbackViewModel();
+            if (surveyResponse.IsSuccessfull)
+            {
+                model.Survey = surveyResponse.Data;
+            }
+            return View(model);
+        }
+
+
 
         [HttpPost]
         public IActionResult SubmitFeedback(SurveyFeedbackViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Handle the survey feedback submission
                 var result = _responseService.AddResponse(model.Survey, model.Email);
 
                 if (result.IsSuccessfull)
                 {
                     TempData["Message"] = "Thank you for your feedback!";
-                    return RedirectToAction("ThankYou");
+                    return RedirectToAction("SurveySubmitted");
                 }
 
                 model.ErrorMessage = result.message;
@@ -117,6 +159,11 @@ namespace Survey_Feedback_App.Controllers
         {
             var survey = _createService.GetUserSurvey(_identity.GetCurrentUser().Id);
             return View(survey.Data);
+        }
+
+        public IActionResult SurveySubmitted()
+        {
+            return View();
         }
 
 

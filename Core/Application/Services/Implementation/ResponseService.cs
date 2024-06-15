@@ -52,24 +52,78 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         public bool IsFeedbackExist(string email,  string SurveyId)
         {
             var getUser = _userUnreg.Get(s => s.Email == email);
-            if(getUser != null)
+            var checkEmail = _surveyRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any(); 
+            if (checkEmail)
             {
-                var checkEmail = _surveyRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any(); 
-            return true; 
+                return true;
             }
             return false;
         }
 
-        public BaseResponse<SurveyResponseModel> TakeSurvey(string Id)
+        public bool IsDelete(string id)
         {
-           var getSurvey = _surveyRepo.GetById(Id);
+            var delete = _surveyRepo.IsDelete(id);
+            if (delete) _unitOfWork.Save(); return true;
+            return false;
+        }
+
+        public BaseResponse<SurveyResponseModel> TakeSurvey(string Id, string email)
+        {
+            var getUser = _userUnreg.Get(s => s.Email == email);
+            if (getUser == null)
+            {
+                _identity.Add(email);
+            }
+            var getSurvey = _surveyRepo.GetById(Id);
+            if (getSurvey != null)
+            {
+                if(!IsFeedbackExist(email, Id))
+                {
+                    var surveyResponse = new SurveyResponseModel
+                    {
+                        SurveyId = getSurvey.Id,
+                        Title = getSurvey.Title,
+                        UsersUnregId = getUser.Id,
+                        Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
+                        {
+                            QuestionId = q.Id,
+                            Text = q.Text,
+                            Type = q.Type,
+                            Options = q.Options.Select(o => new OptionResponseModel
+                            {
+                                OptionId = o.Id,
+                                Text = o.Text
+                            }).ToList()
+
+                        }).ToList()
+                    };
+                    return new BaseResponse<SurveyResponseModel>
+                    {
+                        IsSuccessfull = true,
+                        message = "View Page",
+                        Data = surveyResponse
+                    };
+                }
+               
+            }
+            return new BaseResponse<SurveyResponseModel>
+            {
+                IsSuccessfull = false,
+                message = "Failed",
+                Data = null
+            };
+        }
+
+        public BaseResponse<SurveyResponseModel> ViewSurvey(string Id)
+        {
+         
+            var getSurvey = _surveyRepo.GetById(Id);
             if (getSurvey != null)
             {
                     var surveyResponse = new SurveyResponseModel
                     {
                         SurveyId = getSurvey.Id,
                         Title = getSurvey.Title,
-                        UsersUnregId = getSurvey.UsersRegId,
                         Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
                         {
                             QuestionId = q.Id,

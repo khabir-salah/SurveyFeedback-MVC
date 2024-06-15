@@ -34,7 +34,15 @@
                                     <br />
                                     <span>Survey Link: <code>https://localhost:7224/Survey/TakeSurvey?link=http%3A%2F%2Flocalhost7224%2Fsurvey%2F/@survey.SurveyId</code></span>
                                 </div>
-                                <a href="@Url.Action("TakeSurvey", "Survey", new { link = survey.SurveyId })" class="btn btn-primary">Take Survey</a>
+                                <div>
+                                    <a href="@Url.Action("ViewSurvey", "Survey", new { link = survey.SurveyId })" class="btn btn-primary">View Survey</a>
+                                   @*  @using (Html.BeginForm("DeleteSurvey", "Survey", FormMethod.Post, new { @class = "d-inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("surveyId", survey.SurveyId)
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    } *@
+                                </div>
                             </li>
                         }
                     </ul>

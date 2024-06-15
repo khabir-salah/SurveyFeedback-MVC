@@ -40,10 +40,11 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return surveys;
         }
 
-        public void IsDelete(string Id)
+        public bool IsDelete(string Id)
         {
-            var survey = _context.Surveys.Include(s => s.Questions).FirstOrDefault(s => s.Id == Id);
-            _context.Surveys.Remove(survey);
+            var survey = _context.Surveys.Include(s => s.Questions).ThenInclude(o => o.Options).FirstOrDefault(s => s.Id == Id);
+            if (survey == null) return false;
+            else _context.Surveys.Remove(survey); return true;
         }
 
         public void Update(Survey survey)

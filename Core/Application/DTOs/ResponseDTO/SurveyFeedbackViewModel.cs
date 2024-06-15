@@ -6,5 +6,6 @@
         public bool ShowSurveyForm { get; set; }
         public SurveyResponseModel Survey { get; set; }
         public string Email { get; set; }
+        public string SurveyId { get; set; }
     }
 }

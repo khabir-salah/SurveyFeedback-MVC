@@ -5,8 +5,11 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 {
     public interface IResponseService
     {
-        BaseResponse<SurveyResponseModel> TakeSurvey(string Id);
+        BaseResponse<SurveyResponseModel> ViewSurvey(string Id);
+        BaseResponse<SurveyResponseModel> TakeSurvey(string Id, string email);
+
         bool IsFeedbackExist(string UserId, string SurveyId);
+        bool IsDelete(string id);
 
         BaseResponse<SurveyResponseModel> AddResponse(SurveyResponseModel response, string email);
     }

@@ -6,64 +6,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>@ViewData["Title"] - Survey Feedback</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2>@Model.Survey?.Title ?? "Survey Feedback"</h2>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">@Model.Survey?.Title ?? "Survey Feedback"</h2>
 
-        @if (Model.ShowSurveyForm)
-        {
-            @using (Html.BeginForm("SubmitFeedback", "Survey", FormMethod.Post))
-            {
-                @Html.HiddenFor(m => m.Survey.SurveyId)
-                @Html.HiddenFor(m => m.Survey.UsersUnregId)
-
-                @for (int i = 0; i < Model.Survey.Questions.Count; i++)
-                {
-                    <div class="form-group">
-                        <label>@Model.Survey.Questions[i].Text</label>
-                        @Html.HiddenFor(m => m.Survey.Questions[i].QuestionId)
-                        @Html.HiddenFor(m => m.Survey.Questions[i].Type)
-
-                        @if (Model.Survey.Questions[i].Type == Types.Text)
+                        @if (Model.ShowSurveyForm && Model.Survey != null)
                         {
-                            @Html.TextBoxFor(m => m.Survey.Questions[i].Response, new { @class = "form-control" })
-                        }
-                        else if (Model.Survey.Questions[i].Type == Types.Radio)
-                        {
-                            @foreach (var option in Model.Survey.Questions[i].Options)
+                            @using (Html.BeginForm("SubmitFeedback", "Survey", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
                             {
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        @Html.RadioButtonFor(m => m.Survey.Questions[i].Response, option.OptionId, new { @class = "form-check-input" })
-                                        @option.Text
-                                    </label>
+                                @Html.HiddenFor(m => m.Survey.SurveyId)
+                                @Html.HiddenFor(m => m.Survey.UsersUnregId)
+                                @Html.HiddenFor(m => m.Email)
+                                @Html.HiddenFor(m => m.SurveyId) <!-- Hidden field for SurveyId -->
+                                @for (int i = 0; i < Model.Survey.Questions.Count; i++)
+                                {
+                                    <div class="mb-3">
+                                        <label class="form-label">@Model.Survey.Questions[i].Text</label>
+                                        @Html.HiddenFor(m => m.Survey.Questions[i].QuestionId)
+                                        @Html.HiddenFor(m => m.Survey.Questions[i].Type)
+
+                                        @if (Model.Survey.Questions[i].Type == Types.Text)
+                                        {
+                                            @Html.TextBoxFor(m => m.Survey.Questions[i].Response, new { @class = "form-control", required = "required" })
+                                        }
+                                        else if (Model.Survey.Questions[i].Type == Types.Radio)
+                                        {
+                                            @foreach (var option in Model.Survey.Questions[i].Options)
+                                            {
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="Survey.Questions[@i].Response" value="@option.OptionId" required />
+                                                    <label class="form-check-label">@option.Text</label>
+                                                </div>
+                                            }
+                                        }
+                                        else if (Model.Survey.Questions[i].Type == Types.Checkbox)
+                                        {
+                                            @foreach (var option in Model.Survey.Questions[i].Options)
+                                            {
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="Survey.Questions[@i].SelectedOptions" value="@option.OptionId" />
+                                                    <label class="form-check-label">@option.Text</label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                }
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             }
                         }
-                        else if (Model.Survey.Questions[i].Type == Types.Checkbox)
+                        else
                         {
-                            @foreach (var option in Model.Survey.Questions[i].Options)
+                            @using (Html.BeginForm("TakeSurvey", "Survey", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
                             {
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" name="Survey.Questions[@i].SelectedOptions" value="@option.OptionId" class="form-check-input" />
-                                        @option.Text
-                                    </label>
+                                <div class="mb-3">
+                                    <label for="inputEmail" class="form-label">Email Address</label>
+                                    <input type="email" id="inputEmail" name="Email" class="form-control" required />
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
                                 </div>
+                                @Html.HiddenFor(m => m.SurveyId) <!-- Hidden field for SurveyId -->
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">Start Survey</button>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                            {
+                                <div class="alert alert-danger mt-3">@Model.ErrorMessage</div>
                             }
                         }
                     </div>
-                }
-                <button type="submit" class="btn btn-primary">Submit</button>
-            }
-        }
-        else
-        {
-            <div class="alert alert-danger">@Model.ErrorMessage</div>
-        }
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 </html>
