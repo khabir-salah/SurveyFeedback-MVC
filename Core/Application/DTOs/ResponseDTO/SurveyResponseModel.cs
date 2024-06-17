@@ -12,4 +12,10 @@ namespace Survey_Feedback_App.Core.Application.DTOs.ResponseDTO
         public string Title { get; set; }
         public List<QuestionResponseModel> Questions { get; set; } 
     }
+
+    public class SurveyRequestModels
+    {
+        public string SurveyId { get; set; }
+        public List<ResponseQuestionModel> Questions { get; set; }
+    }
 }

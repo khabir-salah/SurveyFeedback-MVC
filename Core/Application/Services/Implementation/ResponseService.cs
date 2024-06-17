@@ -13,34 +13,37 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         private readonly ISurveyRepository _surveyRepo;
         private readonly IIdentityService _identity;
         private readonly IUsersUnregRepository _userUnreg;
+        private readonly ISurveyResposeRepository _surveyResponse;
 
-        public ResponseService(IResponseRepository responseRepo, IUnitOfWork unitOfWork, ISurveyRepository surveyRepo, IIdentityService identity, IUsersUnregRepository userUnreg)
+        public ResponseService(IResponseRepository responseRepo, IUnitOfWork unitOfWork, ISurveyRepository surveyRepo, IIdentityService identity, IUsersUnregRepository userUnreg, ISurveyResposeRepository surveyResponse)
         {
             _responseRepo = responseRepo;
             _unitOfWork = unitOfWork;
             _surveyRepo = surveyRepo;
             _identity = identity;
             _userUnreg = userUnreg;
+            _surveyResponse = surveyResponse;
         }
 
-        public BaseResponse<SurveyResponseModel> AddResponse(SurveyResponseModel response, string email)
+        public BaseResponse<SurveyResponseModel> AddResponse(SurveyRequestModels response, string email)
         {
+            BaseResponse<UsersUnregResponseModel> identity = default ;
             var getUser = _userUnreg.Get(s => s.Email == email);
             if (getUser == null)
             {
-                _identity.Add(email);
+                identity =  _identity.Add(email);
             }
             var feedback = new SurveyResponse
             {
                 SurveyId = response.SurveyId,
-                UsersUnregId = response.UsersUnregId,
+                UsersUnregId = identity.Data.UsersUnregId,
                 QuestionResponses = response.Questions.Select(q => new QuestionResponse
                 {
                     QuestionId = q.QuestionId,
-                    Response = q.Response,
+                    Response = q.Type == Domain.Enum.Types.Text ? q.Text : q.Type == Domain.Enum.Types.Checkbox ?  String.Join("/n",q.SelectedOptions) : q.Response,
                 }).ToList()
             };
-            _responseRepo.Add(feedback);
+            _surveyResponse.Add(feedback);
             _unitOfWork.Save();
             return new BaseResponse<SurveyResponseModel>
             {
@@ -52,7 +55,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         public bool IsFeedbackExist(string email,  string SurveyId)
         {
             var getUser = _userUnreg.Get(s => s.Email == email);
-            var checkEmail = _surveyRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any(); 
+            var checkEmail = _surveyResponse.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any(); 
             if (checkEmail)
             {
                 return true;
@@ -63,8 +66,9 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         public bool IsDelete(string id)
         {
             var delete = _surveyRepo.IsDelete(id);
-            if (delete) _unitOfWork.Save(); return true;
-            return false;
+            if (delete)
+            { _unitOfWork.Save(); return true; }
+            else return false;
         }
 
         public BaseResponse<SurveyResponseModel> TakeSurvey(string Id, string email)

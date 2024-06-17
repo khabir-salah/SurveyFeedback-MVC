@@ -86,7 +86,7 @@ namespace Survey_Feedback_App.Controllers
             var surveyResponse = _responseService.ViewSurvey(model.SurveyId);
             if (surveyResponse == null || surveyResponse.Data == null)
             {
-                model.ErrorMessage = surveyResponse?.message ?? "An error occurred while retrieving the survey.";
+                model.ErrorMessage = "An error occurred while retrieving the survey.";
                 model.ShowSurveyForm = false;
             }
 
@@ -134,7 +134,7 @@ namespace Survey_Feedback_App.Controllers
 
 
         [HttpPost]
-        public IActionResult SubmitFeedback(SurveyFeedbackViewModel model)
+        public IActionResult SubmitFeedback(SubmitResponseViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -146,12 +146,9 @@ namespace Survey_Feedback_App.Controllers
                     return RedirectToAction("SurveySubmitted");
                 }
 
-                model.ErrorMessage = result.message;
-                model.ShowSurveyForm = true;
                 return View("TakeSurvey", model);
             }
 
-            model.ShowSurveyForm = true;
             return View("TakeSurvey", model);
         }
 

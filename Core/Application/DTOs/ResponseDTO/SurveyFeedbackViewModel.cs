@@ -8,4 +8,11 @@
         public string Email { get; set; }
         public string SurveyId { get; set; }
     }
+
+    public class SubmitResponseViewModel
+    {
+        public SurveyRequestModels Survey { get; set; }
+        public string Email { get; set; }
+        public string SurveyId { get; set; }
+    }
 }

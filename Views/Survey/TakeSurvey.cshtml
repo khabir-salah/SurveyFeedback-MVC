@@ -31,6 +31,7 @@
                                         <label class="form-label">@Model.Survey.Questions[i].Text</label>
                                         @Html.HiddenFor(m => m.Survey.Questions[i].QuestionId)
                                         @Html.HiddenFor(m => m.Survey.Questions[i].Type)
+                                        @Html.HiddenFor(m => m.Survey.Questions[i].Text)
 
                                         @if (Model.Survey.Questions[i].Type == Types.Text)
                                         {

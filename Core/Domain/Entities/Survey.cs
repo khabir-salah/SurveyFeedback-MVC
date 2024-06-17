@@ -13,6 +13,5 @@ namespace Survey_Feedback_App.Core.Domain.Entities
         public Status Status { get; set; }
         public string? Upload { get; set; }
         public ICollection<Question> Questions { get; set; } = new List<Question>();
-        public string UsersUnregId { get; set; }
     }
 }
