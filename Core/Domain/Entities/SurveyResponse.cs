@@ -5,6 +5,8 @@
         public string SurveyId { get; set; }
         public List<QuestionResponse> QuestionResponses { get; set; } = new List<QuestionResponse>();
         public string UsersUnregId { get; set; }
-
+        public Survey Survey { get; set; }
+        public UsersUnreg UserUnreg { get; set; }
+        //public Question Question { get; set; }
     }
 }

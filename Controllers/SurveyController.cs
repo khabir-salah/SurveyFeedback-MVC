@@ -12,11 +12,13 @@ namespace Survey_Feedback_App.Controllers
         private readonly ICreateSurveyService _createService;
         private readonly IResponseService _responseService;
         private readonly IIdentityService _identity;
-        public SurveyController(ICreateSurveyService createService, IResponseService responseService, IIdentityService identity)
+        private readonly IFeedbackService _feedback;
+        public SurveyController(ICreateSurveyService createService, IResponseService responseService, IIdentityService identity, IFeedbackService feedback)
         {
             _createService = createService;
             _responseService = responseService;
             _identity = identity;
+            _feedback = feedback;
         }
 
         public IActionResult Index()
@@ -87,6 +89,12 @@ namespace Survey_Feedback_App.Controllers
             if (surveyResponse == null || surveyResponse.Data == null)
             {
                 model.ErrorMessage = "An error occurred while retrieving the survey.";
+                model.ShowSurveyForm = false;
+            }
+
+            else if (surveyResponse.Data.EndTime > DateTime.Now)
+            {
+                model.ErrorMessage = "Survey Response Ended.";
                 model.ShowSurveyForm = false;
             }
 
@@ -163,7 +171,20 @@ namespace Survey_Feedback_App.Controllers
             return View();
         }
 
+        public IActionResult SurveyFeedback()
+        {
+            var survey = _createService.GetUserSurvey(_identity.GetCurrentUser().Id);
+            return View(survey.Data);
+        }
 
+        public IActionResult ViewSurveyFeedback(string link)
+        {
+            link = Uri.UnescapeDataString(link);
+            // Extract survey ID from the link
+            var linkId = link.Split('/').Last();
+            var surveyResponse = _feedback.GetFeedbackById(linkId);
+            return View(surveyResponse.Data);
+        }
 
 
     }

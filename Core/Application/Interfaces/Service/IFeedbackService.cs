@@ -5,9 +5,7 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 {
     public interface IFeedbackService
     {
-        BaseResponse<string> GiveFeedback(SurveyRequestModel request);
+        BaseResponse<ICollection<SurveyResponseViewModel>> GetFeedbackById(string Id);
 
-
-        BaseResponse<List<SurveyRequestModel>> GetFeedbacks(int Id);
     }
 }

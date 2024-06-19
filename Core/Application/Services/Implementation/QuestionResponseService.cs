@@ -35,7 +35,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 var questions = new QuestionResponse
                 {
                     QuestionId = question.QuestionId,
-                    Response = question.Response,
+                    OptionId = question.Response,
                 };
             }
         }

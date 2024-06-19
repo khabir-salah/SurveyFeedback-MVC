@@ -1,0 +1,126 @@
+﻿@using Survey_Feedback_App.Core.Domain.Enum;
+@model ICollection<Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveyResponseViewModel>
+
+@{
+    Layout = "_Layout1";
+    ViewData["Title"] = "Survey Feedback";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f1f3f4;
+            font-family: 'Roboto', sans-serif;
+        }
+        .colors{
+            color:black;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 50px;
+            max-width: 800px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+            .form-header h2 {
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+
+            .form-header p {
+                color: #5f6368;
+            }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+            .form-group label {
+                font-weight: 500;
+                color: #202124;
+            }
+
+        .form-check-label {
+            color: #5f6368;
+        }
+
+        .btn-primary {
+            background-color: #1a73e8;
+            border-color: #1a73e8;
+        }
+
+            .btn-primary:hover {
+                background-color: #155ab6;
+                border-color: #155ab6;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h2>@ViewData["Title"]</h2>
+            <p>Feedback for the selected survey.</p>
+        </div>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var feedback in Model)
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h3 class="colors">@feedback.Survey.Title</h3>
+                        <p><strong>User Email:</strong> @feedback.UsersUnreg.Email</p>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var question in feedback.QuestionResponses)
+                        {
+                            <div class="form-group">
+                                <label>@question.Question.Text</label>
+                                @if (question.Question.Type == Types.Text)
+                                {
+                                    <p class="form-control-static">@question.Option.Text</p>
+                                }
+                                else if (question.Question.Type == Types.Radio || question.Question.Type == Types.Checkbox)
+                                {
+                                    var selectedOptions = question.Option.Text
+                                    .Split("/n");
+
+                                    @foreach (var option in selectedOptions)
+                                    {
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" disabled @(option != null && option.Contains(option) ? "checked" : "") />
+                                                @option
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                No feedback available for this survey.
+            </div>
+        }
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

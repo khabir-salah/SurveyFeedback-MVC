@@ -21,13 +21,13 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
 
         public SurveyResponse? Get(string Id)
         {
-            var feedback = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.Response).FirstOrDefault(x => x.Id == Id);
+            var feedback = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.OptionId).FirstOrDefault(x => x.Id == Id);
             return feedback;
         }
 
         public ICollection<SurveyResponse> GetAll()
         {
-           var feedbacks = _context.Feedbacks.ToList();
+           var feedbacks = _context.Feedbacks.Include(s => s.Survey).Include(q => q.QuestionResponses).ThenInclude(q => q.Question).Include(q => q.QuestionResponses).ThenInclude(q => q.Option).Include(q => q.UserUnreg).ToList();
             return feedbacks;
         }
 

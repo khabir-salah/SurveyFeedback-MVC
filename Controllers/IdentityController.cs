@@ -55,7 +55,7 @@ namespace Survey_Feedback_App.Controllers
                 var property = new AuthenticationProperties();
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, property);
                 TempData["Message"] = user.message;
-                return RedirectToAction("UserDashboard", user.Data );
+                return RedirectToAction("UserDashboard" );
             }
             TempData["Message"] = user.message;
             return View(request);

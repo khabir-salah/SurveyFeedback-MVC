@@ -3,7 +3,9 @@
     public class QuestionResponse : Auditables
     {
         public string QuestionId { get; set; }
-        public string Response { get; set; }
+        public string OptionId { get; set; }
+        public Question Question { get; set; }
+        public Option Option { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
+﻿using Microsoft.AspNetCore.Hosting;
+using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
 using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
 using Survey_Feedback_App.Core.Application.Interfaces.Repository;
 using Survey_Feedback_App.Core.Application.Interfaces.Service;
@@ -18,15 +19,16 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         private readonly IQuestionRepository _questionRepo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IIdentityService _identity;
-
+        IWebHostEnvironment _webHostEnvironment;
         
-        public CreateSurveyService(ISurveyRepository surveyRepo, IQuestionRepository questionRepo, IUnitOfWork unitOfWork, IOptionRepository optionRepo, IIdentityService identity)
+        public CreateSurveyService(ISurveyRepository surveyRepo, IQuestionRepository questionRepo, IUnitOfWork unitOfWork, IOptionRepository optionRepo, IIdentityService identity, IWebHostEnvironment webHostEnvironment)
         {
             _surveyRepo = surveyRepo;
             _questionRepo = questionRepo;
             _unitOfWork = unitOfWork;
             _optionRepo = optionRepo;
             _identity = identity;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         
@@ -43,7 +45,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         public BaseResponse<string> Create(SurveyRequestModel model)
         {
-
+            var imageUrl = SaveImage(model.Upload);
             var survey = new Survey
             {
                 Title = model.Title,
@@ -92,6 +94,32 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         }
 
+
+        private string SaveImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return string.Empty;
+
+            var uploadDir = "uploads";
+            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, uploadDir);
+
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var fullPath = Path.Combine(filePath, uniqueFileName);
+
+            using (var fileStream = new FileStream(fullPath, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            return $"/{uploadDir}/{uniqueFileName}";
+        }
+
+
         public BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id)
         {
             var userSurvey = _surveyRepo.GetByUser(id);
@@ -103,7 +131,8 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                     message = "List of survey",
                     Data = userSurvey.Select(s => new SurveyResponseModel
                     {
-                        SurveyId = s.Id
+                        SurveyId = s.Id,
+                        Title = s.Title,
                     }).ToList()
                 };
         }
