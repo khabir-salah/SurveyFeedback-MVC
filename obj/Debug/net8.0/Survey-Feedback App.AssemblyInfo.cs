@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Survey-Feedback App")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb553dc8014f8cd109dd15150e046c8e9a4cea3f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce86be93bd2a18b57a8535c05a4dac89dd58921f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Survey-Feedback App")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Survey-Feedback App")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
