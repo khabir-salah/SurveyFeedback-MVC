@@ -51,6 +51,14 @@
                 text-decoration: none;
                 color: white;
             }
+
+        .survey-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -67,6 +75,12 @@
                         {
                             <div>
                                 @Html.HiddenFor(m => m.Survey.SurveyId)
+
+                                @if (!string.IsNullOrEmpty(Model.Survey.Uplaod))
+                                {
+                                    <img src="@Model.Survey.Uplaod" alt="Survey Image" class="survey-image" />
+                                }
+
                                 @for (int i = 0; i < Model.Survey.Questions.Count; i++)
                                 {
                                     <div class="survey-question">
