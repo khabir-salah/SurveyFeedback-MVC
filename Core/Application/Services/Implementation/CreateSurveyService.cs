@@ -49,7 +49,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             var survey = new Survey
             {
                 Title = model.Title,
-                Upload = model.Upload,
+                Upload = imageUrl,
                 TmeCreated = DateTime.Now,
                 EndTime = model.EndTime,
                 UsersRegId = _identity.GetCurrentUser().Id,

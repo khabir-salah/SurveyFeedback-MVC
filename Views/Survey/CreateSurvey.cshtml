@@ -64,6 +64,13 @@
                 background-color: #155ab6;
                 border-color: #155ab6;
             }
+
+        .preview-img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -72,15 +79,16 @@
             <h2>Create Survey</h2>
             <p>Add your questions below.</p>
         </div>
-        @using (Html.BeginForm("CreateSurvey", "Survey", FormMethod.Post))
+        @using (Html.BeginForm("CreateSurvey", "Survey", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="form-group">
                 @Html.LabelFor(m => m.Title)
                 @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Enter survey title" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.Upload)
-                @Html.TextBoxFor(m => m.Upload, new { @class = "form-control", placeholder = "Upload link" })
+                @Html.LabelFor(m => m.Upload, "Upload Picture")
+                <input type="file" name="Upload" class="form-control" accept="image/*" onchange="previewImage(event)" />
+                <img id="previewImg" class="preview-img" />
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.EndTime)
@@ -121,18 +129,18 @@
             const container = document.getElementById('questionsContainer');
             const questionIndex = questionCount++;
             const questionHtml = `
-                        <div class="form-group">
-                            <label>Question ${questionIndex + 1}</label>
-                            <input type="text" name="Questions[${questionIndex}].Text" class="form-control" placeholder="Enter your question" />
-                            <select name="Questions[${questionIndex}].Type" class="form-control mb-2">
-                                <option value="Text">Text</option>
-                                <option value="Radio">Multiple Choice (Radio)</option>
-                                <option value="Checkbox">Multiple Choice (Checkbox)</option>
-                            </select>
-                            <div id="optionsContainer${questionIndex}"></div>
-                            <input type="button" value="Add Option" class="btn btn-link" onclick="addOption(${questionIndex})" />
-                        </div>
-                    `;
+                                <div class="form-group">
+                                    <label>Question ${questionIndex + 1}</label>
+                                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" placeholder="Enter your question" />
+                                    <select name="Questions[${questionIndex}].Type" class="form-control mb-2">
+                                        <option value="Text">Text</option>
+                                        <option value="Radio">Multiple Choice (Radio)</option>
+                                        <option value="Checkbox">Multiple Choice (Checkbox)</option>
+                                    </select>
+                                    <div id="optionsContainer${questionIndex}"></div>
+                                    <input type="button" value="Add Option" class="btn btn-link" onclick="addOption(${questionIndex})" />
+                                </div>
+                            `;
             container.innerHTML += questionHtml;
         }
 
@@ -140,11 +148,21 @@
             const optionsContainer = document.getElementById('optionsContainer' + questionIndex);
             const optionCount = optionsContainer.getElementsByClassName('form-check').length;
             const optionHtml = `
-                        <div class="form-check">
-                            <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].Text" class="form-control" placeholder="Option ${optionCount + 1} text" />
-                        </div>
-                    `;
+                                <div class="form-check">
+                                    <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].Text" class="form-control" placeholder="Option ${optionCount + 1} text" />
+                                </div>
+                            `;
             optionsContainer.innerHTML += optionHtml;
+        }
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const output = document.getElementById('previewImg');
+                output.src = reader.result;
+                output.style.display = 'block';
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 </body>
