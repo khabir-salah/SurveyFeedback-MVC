@@ -82,6 +82,10 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                     }
                 }
             }
+
+            var noOfSurvey = _surveyRepo.GetByUser(survey.UsersRegId).Count;
+            survey.SurveyCount = noOfSurvey + 1;
+            _surveyRepo.Update(survey);
             _surveyRepo.Add(survey);
             _unitOfWork.Save();
 
@@ -108,7 +112,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 Directory.CreateDirectory(filePath);
             }
 
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var uniqueFileName = Guid.NewGuid().ToString().Substring(0,5) + "_" + file.FileName;
             var fullPath = Path.Combine(filePath, uniqueFileName);
 
             using (var fileStream = new FileStream(fullPath, FileMode.Create))
@@ -138,16 +142,10 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         }
 
 
+        public int GetSurveyCount(string userId)
+        {
+            return _surveyRepo.GetByUser(userId).Count;
+        }
 
-        /* var check = isTitleExist(request.SurveyRequest.Title, request.SurveyRequest.UsersRegId);
-           if(check)
-           {
-               return new BaseResponse<SurveyResponseModel>
-               {
-                   IsSuccessfull = false,
-                   Data = null,
-                   message = "Survey Title Already Exist"
-               };
-           }*/
     }
 }

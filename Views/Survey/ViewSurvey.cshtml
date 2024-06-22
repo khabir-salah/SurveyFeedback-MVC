@@ -15,6 +15,7 @@
     <style>
         .survey-question {
             margin-bottom: 1.5rem;
+            margin-left:10px
         }
 
             .survey-question label {
@@ -33,6 +34,7 @@
         .delete-btn-container {
             margin-top: 2rem;
             text-align: center;
+            padding-bottom:20px;
         }
 
         .delete-btn {
@@ -55,20 +57,27 @@
         .survey-image {
             max-width: 100%;
             height: auto;
-            margin-bottom: 1.5rem;
+            /* margin: 1.5rem; */
             border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); */
         }
+        .title{
+            text-align:center;
+            font-size:large;
+            padding:20px;
+        }
+       
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5" >
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h2 class="card-title text-center mb-0">@Model.Survey?.Title ?? "Survey Feedback"</h2>
+                            <h2 class="title" class="card-title text-center mb-0">@Model.Survey.Title </h2>
                         </div>
 
                         @if (Model.Survey != null)

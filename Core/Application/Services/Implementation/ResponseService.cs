@@ -45,6 +45,11 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 }).ToList()
             };
             _surveyResponse.Add(feedback);
+
+            var responses = _surveyRepo.GetById(response.SurveyId).UsersRegId;
+            var noOfResponse = _surveyResponse.GetByUser(responses).Count;
+            feedback.ResponseCount = noOfResponse + 1;
+            _surveyResponse.Update(feedback);
             _unitOfWork.Save();
             return new BaseResponse<SurveyResponseModel>
             {
@@ -159,7 +164,11 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             };
         }
 
+        public int GetResponseCount(string userId)
+        {
+            return _surveyResponse.GetByUser(userId).Count;
 
-    
+        }
+
     }
 }

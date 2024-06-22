@@ -7,6 +7,7 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
     {
         BaseResponse<string> Create(SurveyRequestModel request);
         BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id);
+        int GetSurveyCount(string userId);
 
 
     }

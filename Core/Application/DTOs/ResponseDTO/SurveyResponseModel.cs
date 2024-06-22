@@ -24,11 +24,14 @@ namespace Survey_Feedback_App.Core.Application.DTOs.ResponseDTO
 
         public DateTime EndTime { get; set; }
         public DateTime TimeCreated { get; set; }
+        public int FeedbackCount { get; set; }
+
     }
 
     public class SurveyRequestModels
     {
         public string SurveyId { get; set; }
+        public int FeedbackCount { get; set; }
         public List<ResponseQuestionModel> Questions { get; set; }
     }
 }

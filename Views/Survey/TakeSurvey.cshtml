@@ -27,7 +27,7 @@
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center">@Model.Survey?.Title ?? "Survey Feedback"</h2>
+                        <h2 class="card-title text-center">@Model.Survey.Title</h2>
 
                         @if (Model.Survey != null && Model.ShowSurveyForm)
                         {
