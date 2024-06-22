@@ -2,7 +2,10 @@
 {
     public class DashboardViewModel
     {
-        public int responseCount { get; set; }
+        public int ResponseCount { get; set; }
+        public int SurveyCount { get; set; }
+        
+        
 
     }
 }

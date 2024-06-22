@@ -18,9 +18,11 @@
             background-color: #f1f3f4;
             font-family: 'Roboto', sans-serif;
         }
-        .colors{
-            color:black;
+
+        .colors {
+            color: black;
         }
+
         .container {
             background-color: white;
             border-radius: 8px;
@@ -76,36 +78,47 @@
         </div>
         @if (Model != null && Model.Count > 0)
         {
-            @foreach (var feedback in Model)
+            var surveyFeedbackGroups = Model.GroupBy(f => f.Survey.SurveyId);
+
+            foreach (var group in surveyFeedbackGroups)
             {
+                var surveyTitle = group.First().Survey.Title;
+                var feedbackCount = group.Count();
+
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h3 class="colors">@feedback.Survey.Title</h3>
-                        <p><strong>User Email:</strong> @feedback.UsersUnreg.Email</p>
+                        <h3 class="colors">@surveyTitle</h3>
+                        <p><strong>Number of Responses:</strong> @feedbackCount</p>
                     </div>
                     <div class="card-body">
-                        @foreach (var question in feedback.QuestionResponses)
+                        @foreach (var feedback in group)
                         {
-                            <div class="form-group">
-                                <label>@question.Question.Text</label>
-                                @if (question.Question.Type == Types.Text)
+                            <div class="mb-4">
+                                <p><strong>User Email:</strong> @feedback.UsersUnreg.Email</p>
+                                @foreach (var question in feedback.QuestionResponses)
                                 {
-                                    <p class="form-control-static">@question.Option.Text</p>
-                                }
-                                else if (question.Question.Type == Types.Radio || question.Question.Type == Types.Checkbox)
-                                {
-                                    var selectedOptions = question.Option.Text
-                                    .Split("/n");
+                                    <div class="form-group">
+                                        <label>@question.Question.Text</label>
+                                        @if (question.Question.Type == Types.Text)
+                                        {
+                                            <p class="form-control-static">@question.Option.Text</p>
+                                        }
+                                        else if (question.Question.Type == Types.Radio || question.Question.Type == Types.Checkbox)
+                                        {
+                                            var selectedOptions = question.Option.Text
+                                            .Split("/n");
 
-                                    @foreach (var option in selectedOptions)
-                                    {
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" disabled @(option != null && option.Contains(option) ? "checked" : "") />
-                                                @option
-                                            </label>
-                                        </div>
-                                    }
+                                            @foreach (var option in selectedOptions)
+                                            {
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" disabled @(option != null && option.Contains(option) ? "checked" : "") />
+                                                        @option
+                                                    </label>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
                                 }
                             </div>
                         }

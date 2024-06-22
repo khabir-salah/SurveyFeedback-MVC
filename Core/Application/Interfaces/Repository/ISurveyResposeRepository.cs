@@ -9,6 +9,5 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
         SurveyResponse Get(string Id);
         void Update(SurveyResponse response);
         ICollection<SurveyResponse> GetByUser(string Id);
-        int GetResponseCount(string userId);
     }
 }

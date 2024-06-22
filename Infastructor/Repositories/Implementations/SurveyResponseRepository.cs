@@ -31,5 +31,17 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return feedbacks;
         }
 
+        public void Update(SurveyResponse response)
+        {
+            _context.Update(response);
+        }
+
+        public ICollection<SurveyResponse> GetByUser(string Id)
+        {
+            var responses = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.OptionId).Where(u => u.UsersRegId == Id).ToList();
+            return responses;
+        }
+
+        
     }
 }

@@ -11,9 +11,13 @@ namespace Survey_Feedback_App.Controllers
     public class IdentityController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IIdentityService _IdentityService;
-        public IdentityController(IIdentityService identityService)
+        private readonly ICreateSurveyService _SurveyService;
+        private readonly IResponseService _responseService;
+        public IdentityController(IIdentityService identityService, ICreateSurveyService surveyService, IResponseService responseService)
         {
             _IdentityService = identityService;
+            _SurveyService = surveyService;
+            _responseService = responseService;
         }
 
         public IActionResult Index()
@@ -55,7 +59,7 @@ namespace Survey_Feedback_App.Controllers
                 var property = new AuthenticationProperties();
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, property);
                 TempData["Message"] = user.message;
-                return RedirectToAction("UserDashboard" );
+                return RedirectToAction("UserDashboard" , user.Data.UsersRegId);
             }
             TempData["Message"] = user.message;
             return View(request);
@@ -70,9 +74,21 @@ namespace Survey_Feedback_App.Controllers
             return View();
         }
 
-        public IActionResult UserDashBoard()
+        public IActionResult UserDashBoard(string userId)
         {
-            return View();
+            // Fetch the number of surveys created by the user
+            var numberOfSurveysCreated = _SurveyService.GetSurveyCount(userId);
+
+            // Fetch the number of feedbacks for surveys created by the user
+            var numberOfFeedbacks = _responseService.GetResponseCount(userId);
+
+            var model = new DashboardViewModel
+            {
+                ResponseCount = numberOfSurveysCreated,
+                SurveyCount = numberOfFeedbacks,
+            };
+
+            return View(model);
         }
 
         public IActionResult LogOut()

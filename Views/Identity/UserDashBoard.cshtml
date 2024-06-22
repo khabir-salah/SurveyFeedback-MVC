@@ -1,15 +1,62 @@
-﻿@{
+﻿@model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.DashboardViewModel
+
+
+@{
     Layout = "_Layout1";
 }
-<!DOCTYPE html>
-    <html>
-    <head>
-        <title>User DashBoard</title>
-    <link rel="stylesheet" href="~/Template/css/bk.css">
-</head>
-    <body >
-    <div id="bk">
-        
+
+<h3 class="i-name">Dashboard</h3>
+<div class="values">
+    <div class="val-box">
+        <i class="fa fa-handshake-o"></i>
+        <div>
+            <h3>@Model.SurveyCount</h3>
+            <span>No of Surveys Created</span>
+        </div>
     </div>
-    </body>
-    </html>
+    <!--==========box 2=============-->
+    <div class="val-box">
+        <i class="fa fa-book"></i>
+        <div>
+            <h3>@Model.ResponseCount</h3>
+            <span>No of Feedbacks</span>
+        </div>
+    </div>
+    <!--==========box 3=============-->
+    <div class="val-box">
+        <i class="fa fa-bars"></i>
+        <div>
+            <h3>Survey Analysis</h3>
+            <span>Interactive Charts Below</span>
+        </div>
+    </div>
+</div>
+
+<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="surveyFeedbackChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('surveyFeedbackChart').getContext('2d');
+    var surveyFeedbackChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.SurveyCount)),
+            datasets: [{
+                label: '# of Feedbacks',
+                data: @Html.Raw(Json.Serialize(Model.ResponseCount)),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

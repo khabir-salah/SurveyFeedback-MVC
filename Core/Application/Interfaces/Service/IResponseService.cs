@@ -13,5 +13,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 
 
         BaseResponse<SurveyResponseModel> AddResponse(SurveyRequestModels response, string email);
+        int GetResponseCount(string userId);
     }
 }
