@@ -3,7 +3,7 @@ namespace Survey_Feedback_App.Core.Domain.Entities
 {
     public class Question : Auditables
     {
-        public string Text { get; set; } = default!;
+        public string QuestionText { get; set; } = default!;
         public Types Type {  get; set; }
         public ICollection<Option> Options { get; set; } = new List<Option>();
         public string SurveyId { get; set; }

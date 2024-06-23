@@ -2,8 +2,10 @@
 {
     public class Option : Auditables
     {
-            public string QuestionId { get; set; }
-            public Question Question { get; set; }
-            public string Text { get; set; }
+        public string QuestionId { get; set; }
+        public Question Question { get; set; }
+        public string OptionText { get; set; }
+        public int Count { get; set; }
+
     }
 }
