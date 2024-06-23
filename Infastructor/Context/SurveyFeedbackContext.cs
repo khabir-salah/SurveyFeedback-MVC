@@ -14,7 +14,7 @@ namespace Survey_Feedback_App.Infastructor.Context
         public DbSet<UsersReg> UsersRegs => Set<UsersReg>();
         public DbSet<UsersUnreg> UsersUnregs => Set<UsersUnreg>();
         public DbSet<Question> Questions => Set<Question>();
-        public DbSet<QuestionResponse> Responses => Set<QuestionResponse>();
+        //public DbSet<QuestionResponse> Responses => Set<QuestionResponse>();
         public DbSet<Option> Options => Set<Option>();
 
 

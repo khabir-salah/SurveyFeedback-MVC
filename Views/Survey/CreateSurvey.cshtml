@@ -102,14 +102,14 @@
                     {
                         <div class="form-group">
                             <label>Question @(i + 1)</label>
-                            @Html.TextBoxFor(m => m.Questions[i].Text, new { @class = "form-control", placeholder = "Enter your question" })
+                            @Html.TextBoxFor(m => m.Questions[i].QuestionText, new { @class = "form-control", placeholder = "Enter your question" })
                             @Html.DropDownListFor(m => m.Questions[i].Type, new SelectList(Enum.GetValues(typeof(Types)).Cast<Types>()), new { @class = "form-control mb-2" })
 
                             <div>
                                 @for (int j = 0; j < Model.Questions[i].Options.Count; j++)
                                 {
                                     <div class="form-check">
-                                        @Html.TextBoxFor(m => m.Questions[i].Options[j].Text, new { @class = "form-control", placeholder = $"Option {j + 1} text" })
+                                        @Html.TextBoxFor(m => m.Questions[i].Options[j].OptionText, new { @class = "form-control", placeholder = $"Option {j + 1} text" })
                                     </div>
                                 }
                             </div>

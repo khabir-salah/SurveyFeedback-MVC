@@ -31,7 +31,7 @@ namespace Survey_Feedback_App.Controllers
             if(survey.IsSuccessfull)
             {
                 TempData["Message"] = survey.message;
-                return Json(Url.Action("TakeSurvey", "Survey", new { link = survey.Data }, Request.Scheme));
+                return Json(Url.Action("TakeSurvey", "Response", new { link = survey.Data }, Request.Scheme));
             }
             TempData["Message"] = survey.message;
             return View(request);
@@ -84,11 +84,20 @@ namespace Survey_Feedback_App.Controllers
             return View(survey.Data);
         }
 
-        
-        public IActionResult SurveyAnalysis(string surveyId)
+        public IActionResult ViewAnalysis()
         {
+            var survey = _surveyService.GetUserSurvey(_identity.GetCurrentUser().Id);
+            return View(survey.Data);
+        }
+
+
+        public IActionResult SurveyAnalysis(string link)
+        {
+            link = Uri.UnescapeDataString(link);
+            // Extract survey ID from the link
+            var linkId = link.Split('/').Last();
             // Fetch the survey data based on the surveyId
-            var survey = _surveyService.GetById(surveyId);
+            var survey = _surveyService.GetById(linkId);
 
             // Process the data to get counts for each response per question
             var surveyAnalysis = new List<AnalysisViewModel>();

@@ -9,19 +9,15 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 {
     public class FeedbackService : IFeedbackService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ISurveyResposeRepository _responseRepo;
-        private readonly ISurveyRepository _surveyRepo;
-        private readonly IIdentityService _identity;
+        private readonly IUsersUnregRepository _userUnreg;
 
 
 
-        public FeedbackService(ISurveyRepository surveyRepo, IUnitOfWork unitOfWork, ISurveyResposeRepository responseRepo, IIdentityService identity)
+        public FeedbackService( ISurveyResposeRepository responseRepo,  IUsersUnregRepository userUnreg)
         {
-            _unitOfWork = unitOfWork;
-            _surveyRepo = surveyRepo;
             _responseRepo = responseRepo;
-            _identity = identity;
+            _userUnreg = userUnreg;
         }
 
         public BaseResponse<ICollection<SurveyResponseViewModel>> GetFeedbackById(string Id)
@@ -45,6 +41,17 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 }).ToList()
                 
             } : null;
-        } 
+        }
+
+        public bool IsFeedbackExist(string email, string SurveyId)
+        {
+            var getUser = _userUnreg.Get(s => s.Email == email);
+            var checkEmail = _responseRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any();
+            if (checkEmail)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -53,7 +53,6 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 TmeCreated = DateTime.Now,
                 EndTime = model.EndTime,
                 UsersRegId = _identity.GetCurrentUser().Id,
-                Status = Domain.Enum.Status.Pending
             };
 
 
@@ -61,7 +60,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             {
                 var question = new Question
                 {
-                    Text = questionVm.Text,
+                    QuestionText = questionVm.QuestionText,
                     Type = (Types)questionVm.Type,
                     SurveyId = survey.Id
                 };
@@ -74,7 +73,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                     {
                         var option = new Option
                         {
-                            Text = optionText.Text,
+                            OptionText = optionText.OptionText,
                             QuestionId = question.Id
                         };
 
@@ -124,28 +123,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         }
 
 
-        public BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id)
-        {
-            var userSurvey = _surveyRepo.GetByUser(id);
-
-
-                return new BaseResponse<ICollection<SurveyResponseModel>>
-                {
-                    IsSuccessfull = true,
-                    message = "List of survey",
-                    Data = userSurvey.Select(s => new SurveyResponseModel
-                    {
-                        SurveyId = s.Id,
-                        Title = s.Title,
-                    }).ToList()
-                };
-        }
-
-
-        public int GetSurveyCount(string userId)
-        {
-            return _surveyRepo.GetByUser(userId).Count;
-        }
+       
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Survey_Feedback_App.Core.Application.Interfaces.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using Survey_Feedback_App.Core.Application.Interfaces.Repository;
 using Survey_Feedback_App.Core.Domain.Entities;
 using Survey_Feedback_App.Infastructor.Context;
 
@@ -17,9 +18,14 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return request;
         }
 
-        public Option GetById (string id)
+        public Option? GetById (string id)
         {
-            throw new NotImplementedException();
+           return  _context.Options.Include(q => q.Question).FirstOrDefault(o => o.Id == id);
+        }
+
+        public void Update(Option request)
+        {
+            _context.Options.Update(request);
         }
     }
 }

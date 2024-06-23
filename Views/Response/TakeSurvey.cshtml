@@ -48,10 +48,10 @@
                                 @for (int i = 0; i < Model.Survey.Questions.Count; i++)
                                 {
                                     <div class="mb-3">
-                                        <label class="form-label">@Model.Survey.Questions[i].Text</label>
+                                        <label class="form-label">@Model.Survey.Questions[i].QuestionText</label>
                                         @Html.HiddenFor(m => m.Survey.Questions[i].QuestionId)
                                         @Html.HiddenFor(m => m.Survey.Questions[i].Type)
-                                        @Html.HiddenFor(m => m.Survey.Questions[i].Text)
+                                        @Html.HiddenFor(m => m.Survey.Questions[i].QuestionText)
 
                                         @if (Model.Survey.Questions[i].Type == Types.Text)
                                         {
@@ -63,7 +63,7 @@
                                             {
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="Survey.Questions[@i].Response" value="@option.OptionId" required />
-                                                    <label class="form-check-label">@option.Text</label>
+                                                    <label class="form-check-label">@option.OptionText</label>
                                                 </div>
                                             }
                                         }
@@ -73,7 +73,7 @@
                                             {
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="Survey.Questions[@i].SelectedOptions" value="@option.OptionId" />
-                                                    <label class="form-check-label">@option.Text</label>
+                                                    <label class="form-check-label">@option.OptionText</label>
                                                 </div>
                                             }
                                         }

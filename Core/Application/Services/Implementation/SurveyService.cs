@@ -1,116 +1,55 @@
-﻿//using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
-//using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
-//using Survey_Feedback_App.Core.Application.Interfaces.Repository;
-//using Survey_Feedback_App.Core.Application.Interfaces.Service;
-//using Survey_Feedback_App.Core.Domain.Entities;
+﻿using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
+using Survey_Feedback_App.Core.Application.Interfaces.Repository;
+using Survey_Feedback_App.Core.Application.Interfaces.Service;
+using Survey_Feedback_App.Core.Domain.Entities;
 
-//namespace Survey_Feedback_App.Core.Application.Services.Implementation
-//{
-//  public class SurveyService : ISurveyService
-//    {
-//        private readonly IUnitOfWork _unitOfWork;
-//        private readonly ISurveyRepository _surveyRepo;
-//        public SurveyService(ISurveyRepository surveyRepo, IUnitOfWork unitOfWork)
-//        {
-//            _surveyRepo = surveyRepo;
-//            _unitOfWork = unitOfWork;
-//        }
+namespace Survey_Feedback_App.Core.Application.Services.Implementation
+{
+    public class SurveyService : ISurveyService
+    {
 
-//        public SurveyResponseModel Get(int Id)
-//        {
-//            var survey = _surveyRepo.GetById(Id);
-//            return new SurveyResponseModel
-//            {
-//                UsersRegId = survey.UsersRegId,
-//                Questions = survey.Questions,
-//                SurveyId = survey.SurveyId,
-//                TmeCreated = survey.TmeCreated,
-//                status = survey.status,
-//            };
-//        }
+        private readonly ISurveyRepository _surveyRepo;
+        private readonly IUnitOfWork _unitOfWork;
+        public SurveyService(ISurveyRepository surveyRepo, IUnitOfWork unitOfWork)
+        {
+            _surveyRepo = surveyRepo;
+            _unitOfWork = unitOfWork;
+        }
 
-//        public ICollection<SurveyResponseModel> GetAllApproved()
-//        {
-//            var survey = _surveyRepo.GetAll().Where(s => s.status == Domain.Enum.Status.Approved).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
+        public BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id)
+        {
+            var userSurvey = _surveyRepo.GetByUser(id);
 
-//        public ICollection<SurveyResponseModel> GetAllDenied()
-//        {
-//            var survey = _surveyRepo.GetAll().Where(s => s.status == Domain.Enum.Status.Denied).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
 
-//        public ICollection<SurveyResponseModel> GetAllPending()
-//        {
-//            var survey = _surveyRepo.GetAll().Where(s => s.status == Domain.Enum.Status.Pending).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
+            return new BaseResponse<ICollection<SurveyResponseModel>>
+            {
+                IsSuccessfull = true,
+                message = "List of survey",
+                Data = userSurvey.Select(s => new SurveyResponseModel
+                {
+                    SurveyId = s.Id,
+                    Title = s.Title,
+                }).ToList()
+            };
+        }
 
-//        public ICollection<SurveyResponseModel> GetApprovedSurveyByClient(int Id)
-//        {
-//            var survey = _surveyRepo.GetByUser(Id).Where(s => s.status == Domain.Enum.Status.Approved).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
 
-//        public ICollection<SurveyResponseModel> GetByUser()
-//        {
-//            var userSurvey = 
-//        }
+        public int GetSurveyCount(string userId)
+        {
+            return _surveyRepo.GetByUser(userId).Count;
+        }
 
-//        public ICollection<SurveyResponseModel> GetDeniedSurveyByClient(int Id)
-//        {
-//            var survey = _surveyRepo.GetByUser(Id).Where(s => s.status == Domain.Enum.Status.Denied).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
+        public Survey GetById(string Id)
+        {
+            return _surveyRepo.GetById(Id);
+        }
 
-//        public ICollection<SurveyResponseModel> GetPendingSurveyByClient(int Id)
-//        {
-//            var survey = _surveyRepo.GetByUser(Id).Where(s => s.status == Domain.Enum.Status.Pending).Select(s => new SurveyResponseModel
-//            {
-//                SurveyId = s.SurveyId,
-//                status = s.status,
-//                Questions = s.Questions,
-//                TmeCreated = s.TmeCreated,
-//                UsersRegId = s.UsersRegId,
-//            }).ToList();
-//            return survey;
-//        }
-
-       
-//}
+        public bool IsDelete(string id)
+        {
+            var delete = _surveyRepo.IsDelete(id);
+            if (delete)
+            { _unitOfWork.Save(); return true; }
+            else return false;
+        }
+    }
+}

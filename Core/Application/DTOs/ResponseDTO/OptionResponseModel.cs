@@ -3,6 +3,6 @@
     public class OptionResponseModel
     {
         public string OptionId { get; set; }
-        public string Text { get; set; }
+        public string OptionText { get; set; }
     }
 }

@@ -3,9 +3,8 @@ using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
 
 namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 {
-    public interface IQuestionResponseService
+    public interface IViewSurveyService
     {
-        BaseResponse<SurveyResponseModel> GetResponse(int Id);
-        void AddResponse(SurveyResponseModel response);
+        BaseResponse<SurveyResponseModel> ViewSurvey(string Id);
     }
 }

@@ -28,11 +28,11 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return user;
         }
 
-        public ICollection<UsersReg> GetAll()
-        {
-            var users = _context.UsersRegs.ToList();
-            return users;
-        }
+        //public ICollection<UsersReg> GetAll()
+        //{
+        //    var users = _context.UsersRegs.ToList();
+        //    return users;
+        //}
 
     }
 }

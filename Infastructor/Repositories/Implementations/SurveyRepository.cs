@@ -26,11 +26,11 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return survey;
         }
 
-        public ICollection<Survey> GetAll()
-        {
-            var surveys = _context.Surveys.Include(s => s.Questions).ToList();
-            return surveys;
-        }
+        //public ICollection<Survey> GetAll()
+        //{
+        //    var surveys = _context.Surveys.Include(s => s.Questions).ToList();
+        //    return surveys;
+        //}
 
        
 

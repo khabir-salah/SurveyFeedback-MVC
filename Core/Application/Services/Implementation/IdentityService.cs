@@ -54,13 +54,14 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             }
             string salt = BCrypt.Net.BCrypt.GenerateSalt(10);
             var hashPassword = BCrypt.Net.BCrypt.HashPassword(request.Password, salt);
+            var confirmHashPassword = BCrypt.Net.BCrypt.HashPassword(request.ConfirmPassword, salt);
             var user = new UsersReg
             {
                 Email = request.Email,
                 Password = hashPassword,
                 salt = salt,
                 Role = "Client",
-                ConfirmPassword = request.ConfirmPassword,
+                ConfirmPassword = confirmHashPassword,
                 FullName = request.FullName,
                 UserName = request.UserName,
             };

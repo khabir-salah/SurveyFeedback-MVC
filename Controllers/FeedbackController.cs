@@ -8,12 +8,16 @@ namespace Survey_Feedback_App.Controllers
     public class FeedbackController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IResponseService _responseService;
+        private readonly IIdentityService _identity;
+        private readonly IFeedbackService _feedbackService;
         private readonly ISurveyService _surveyService;
 
-        public FeedbackController(IResponseService responseService, ISurveyService surveyService) 
+        public FeedbackController(IResponseService responseService, ISurveyService surveyService, IIdentityService identity, IFeedbackService feedbackService) 
         { 
             _responseService = responseService;
             _surveyService = surveyService;
+            _identity = identity;
+            _feedbackService = feedbackService;
         }
         public IActionResult Index()
         {
@@ -55,7 +59,7 @@ namespace Survey_Feedback_App.Controllers
             link = Uri.UnescapeDataString(link);
             // Extract survey ID from the link
             var linkId = link.Split('/').Last();
-            var surveyResponse = _feedback.GetFeedbackById(linkId);
+            var surveyResponse = _feedbackService.GetFeedbackById(linkId);
             return View(surveyResponse.Data);
         }
     }

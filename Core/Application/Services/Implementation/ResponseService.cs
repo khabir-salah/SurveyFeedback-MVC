@@ -10,20 +10,21 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
     public class ResponseService : IResponseService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IResponseRepository _responseRepo;
         private readonly ISurveyRepository _surveyRepo;
         private readonly IIdentityService _identity;
         private readonly IUsersUnregRepository _userUnreg;
         private readonly ISurveyResposeRepository _surveyResponse;
+        private readonly IOptionRepository _optionRepo ;
 
-        public ResponseService(IResponseRepository responseRepo, IUnitOfWork unitOfWork, ISurveyRepository surveyRepo, IIdentityService identity, IUsersUnregRepository userUnreg, ISurveyResposeRepository surveyResponse)
+
+        public ResponseService( IUnitOfWork unitOfWork, ISurveyRepository surveyRepo, IIdentityService identity, IUsersUnregRepository userUnreg, ISurveyResposeRepository surveyResponse, IOptionRepository optionRepo)
         {
-            _responseRepo = responseRepo;
             _unitOfWork = unitOfWork;
             _surveyRepo = surveyRepo;
             _identity = identity;
             _userUnreg = userUnreg;
             _surveyResponse = surveyResponse;
+            _optionRepo = optionRepo;
         }
 
         public BaseResponse<SurveyResponseModel> AddResponse(SurveyRequestModels response, string email)
@@ -41,15 +42,42 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 QuestionResponses = response.Questions.Select(q => new QuestionResponse
                 {
                     QuestionId = q.QuestionId,
-                    OptionId = q.Type == Domain.Enum.Types.Text ? q.Text : q.Type == Domain.Enum.Types.Checkbox ?  String.Join("/n",q.SelectedOptions) : q.Response,
+                    OptionId = q.Type == Domain.Enum.Types.Text ? q.QuestionText : q.Type == Domain.Enum.Types.Checkbox ?  String.Join("/n",q.SelectedOptions) : q.Response,
                 }).ToList()
             };
             _surveyResponse.Add(feedback);
 
-            var responses = _surveyRepo.GetById(response.SurveyId).UsersRegId;
-            var noOfResponse = _surveyResponse.GetByUser(responses).Count;
+            var user = _surveyRepo.GetById(response.SurveyId).UsersRegId;
+            var noOfResponse = _surveyResponse.GetByUser(user).Count;
             feedback.ResponseCount = noOfResponse + 1;
             _surveyResponse.Update(feedback);
+
+
+            foreach (var question in response.Questions)
+            {
+                if (question.Type == Domain.Enum.Types.Checkbox)
+                {
+                    foreach (var optionId in question.SelectedOptions)
+                    {
+                        var option = _optionRepo.GetById(optionId);
+                        if (option != null)
+                        {
+                            option.Count++;
+                            _optionRepo.Update(option);
+                        }
+                    }
+                }
+                else if (question.Type == Domain.Enum.Types.Radio)
+                {
+                    var option = _optionRepo.GetById(question.Response);
+                    if (option != null)
+                    {
+                        option.Count++;
+                        _optionRepo.Update(option);
+                    }
+                }
+            }
+
             _unitOfWork.Save();
             return new BaseResponse<SurveyResponseModel>
             {
@@ -58,117 +86,15 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             };
         }
 
-        public bool IsFeedbackExist(string email,  string SurveyId)
-        {
-            var getUser = _userUnreg.Get(s => s.Email == email);
-            var checkEmail = _surveyResponse.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any(); 
-            if (checkEmail)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool IsDelete(string id)
-        {
-            var delete = _surveyRepo.IsDelete(id);
-            if (delete)
-            { _unitOfWork.Save(); return true; }
-            else return false;
-        }
-
-        public BaseResponse<SurveyResponseModel> TakeSurvey(string Id, string email)
-        {
-            var getUser = _userUnreg.Get(s => s.Email == email);
-            if (getUser == null)
-            {
-                _identity.Add(email);
-            }
-            var getSurvey = _surveyRepo.GetById(Id);
-            if (getSurvey != null)
-            {
-                if(!IsFeedbackExist(email, Id))
-                {
-                    var surveyResponse = new SurveyResponseModel
-                    {
-                        SurveyId = getSurvey.Id,
-                        Title = getSurvey.Title,
-                        UsersUnregId = getUser.Id,
-                        Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
-                        {
-                            QuestionId = q.Id,
-                            Text = q.Text,
-                            Type = q.Type,
-                            Options = q.Options.Select(o => new OptionResponseModel
-                            {
-                                OptionId = o.Id,
-                                Text = o.Text
-                            }).ToList()
-
-                        }).ToList()
-                    };
-                    return new BaseResponse<SurveyResponseModel>
-                    {
-                        IsSuccessfull = true,
-                        message = "View Page",
-                        Data = surveyResponse
-                    };
-                }
-               
-            }
-            return new BaseResponse<SurveyResponseModel>
-            {
-                IsSuccessfull = false,
-                message = "Failed",
-                Data = null
-            };
-        }
-
-        public BaseResponse<SurveyResponseModel> ViewSurvey(string Id)
-        {
-         
-            var getSurvey = _surveyRepo.GetById(Id);
-           
-            if (getSurvey != null)
-            {
-                    var surveyResponse = new SurveyResponseModel
-                    {
-                        SurveyId = getSurvey.Id,
-                        Title = getSurvey.Title,
-                        Uplaod = getSurvey.Upload,
-                        Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
-                        {
-                            QuestionId = q.Id,
-                            Text = q.Text,
-                            Type = q.Type,
-                            Options = q.Options.Select(o => new OptionResponseModel
-                            {
-                                OptionId = o.Id,
-                                Text = o.Text
-                            }).ToList()
-
-                        }).ToList()
-                    };
-                    return new BaseResponse<SurveyResponseModel>
-                    {
-                        IsSuccessfull = true,
-                        message = "View Page",
-                        Data = surveyResponse
-                    };
-            }
-            return new BaseResponse<SurveyResponseModel>
-            {
-                IsSuccessfull = false,
-                message = "Failed",
-                Data = null
-            };
-        }
+       
 
         public int GetResponseCount(string userId)
         {
             return _surveyResponse.GetByUser(userId).Count;
 
         }
+
+        
 
     }
 }

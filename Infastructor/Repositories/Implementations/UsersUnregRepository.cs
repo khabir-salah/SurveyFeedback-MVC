@@ -25,11 +25,11 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return user;
         }
 
-        public ICollection<UsersUnreg> GetAll()
-        {
-            var users = _context.UsersUnregs.ToList();
-            return users;
-        }
+        //public ICollection<UsersUnreg> GetAll()
+        //{
+        //    var users = _context.UsersUnregs.ToList();
+        //    return users;
+        //}
 
        
     }

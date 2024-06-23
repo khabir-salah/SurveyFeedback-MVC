@@ -1,37 +1,14 @@
 ﻿using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
 using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
+using Survey_Feedback_App.Core.Domain.Entities;
 
 namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 {
     public interface ISurveyService
     {
-
-
-        BaseResponse<SurveyResponseModel> Get(string Id);
-
-
-
-        bool IsDelete(int Id);
-
-
-        // public Survey GetSurvey(string title);
-
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetByUser();
-
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetAllDenied();
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetDeniedSurveyByClient(int Id);
-
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetApprovedSurveyByClient(int Id);
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetPendingSurveyByClient(int Id);
-
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetAllApproved();
-
-        BaseResponse<ICollection<SurveyResponseModel>> GetAllPending();
+        BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id);
+        int GetSurveyCount(string userId);
+        Survey GetById(string Id);
+        bool IsDelete(string id);
     }
 }

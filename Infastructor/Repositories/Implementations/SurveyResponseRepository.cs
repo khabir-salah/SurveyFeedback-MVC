@@ -19,11 +19,11 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return feedback;
         }
 
-        public SurveyResponse? Get(string Id)
-        {
-            var feedback = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.OptionId).FirstOrDefault(x => x.Id == Id);
-            return feedback;
-        }
+        //public SurveyResponse? Get(string Id)
+        //{
+        //    var feedback = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.OptionId).FirstOrDefault(x => x.Id == Id);
+        //    return feedback;
+        //}
 
         public ICollection<SurveyResponse> GetAll()
         {
@@ -33,12 +33,12 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
 
         public void Update(SurveyResponse response)
         {
-            _context.Update(response);
+            _context.Feedbacks.Update(response);
         }
 
         public ICollection<SurveyResponse> GetByUser(string Id)
         {
-            var responses = _context.Feedbacks.Include(f => f.QuestionResponses).ThenInclude(f => f.OptionId).Where(u => u.UsersRegId == Id).ToList();
+            var responses = _context.Feedbacks.Include(f => f.QuestionResponses).Where(u => u.UsersRegId == Id).ToList();
             return responses;
         }
 
