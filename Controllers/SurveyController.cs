@@ -2,23 +2,21 @@
 using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
 using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
 using Survey_Feedback_App.Core.Application.Interfaces.Service;
-using Survey_Feedback_App.Core.Application.Services.Implementation;
-using Survey_Feedback_App.Core.Domain.Entities;
 
 namespace Survey_Feedback_App.Controllers
 {
     public class SurveyController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly ICreateSurveyService _createService;
-        private readonly IResponseService _responseService;
+        private readonly ISurveyService _surveyService;
         private readonly IIdentityService _identity;
-        private readonly IFeedbackService _feedback;
-        public SurveyController(ICreateSurveyService createService, IResponseService responseService, IIdentityService identity, IFeedbackService feedback)
+        private readonly IViewSurveyService _viewSurvey;
+        public SurveyController(ICreateSurveyService createService, ISurveyService surveyService, IIdentityService identity, IViewSurveyService viewSurvey)
         {
             _createService = createService;
-            _responseService = responseService;
+            _surveyService = surveyService;
             _identity = identity;
-            _feedback = feedback;
+            _viewSurvey = viewSurvey;
         }
 
         public IActionResult Index()
@@ -50,74 +48,14 @@ namespace Survey_Feedback_App.Controllers
             return View(model);
         }
         
-        public IActionResult TakeSurvey(string link)
-        {
-            link = Uri.UnescapeDataString(link);
-            // Extract survey ID from the link
-             var linkId = link.Split('/').Last();
-            var surveyResponse = _responseService.ViewSurvey(linkId);
-
-            var model = new SurveyFeedbackViewModel();
-            if (surveyResponse.IsSuccessfull)
-            {
-                model.Survey = surveyResponse.Data;
-                model.SurveyId = linkId;
-                model.ShowSurveyForm = false; // Initially show email input form
-            }
-            else
-            {
-                TempData["Message"] = surveyResponse.message;
-                model.ErrorMessage = surveyResponse.message;
-            }
-
-            return View(model);
-        }
-
-
-
-        [HttpPost]
-        public IActionResult TakeSurvey(SurveyFeedbackViewModel model)
-        {
-            if (string.IsNullOrEmpty(model.Email))
-            {
-                model.ErrorMessage = "Invalid email address.";
-                model.ShowSurveyForm = false;
-                return View(model);
-            }
-           
-            var surveyResponse = _responseService.ViewSurvey(model.SurveyId);
-            if (surveyResponse == null || surveyResponse.Data == null)
-            {
-                model.ErrorMessage = "An error occurred while retrieving the survey.";
-                model.ShowSurveyForm = false;
-            }
-
-            else if (surveyResponse.Data.EndTime > DateTime.Now)
-            {
-                model.ErrorMessage = "Survey Response Ended.";
-                model.ShowSurveyForm = false;
-            }
-
-            else if (!_responseService.IsFeedbackExist(model.Email, model.SurveyId))
-            {
-                model.Survey = surveyResponse.Data;
-                model.ShowSurveyForm = true;
-            }
-            else
-            {
-                model.ErrorMessage = "You have already given feedback for this survey.";
-                model.ShowSurveyForm = false;
-            }
-            return View(model);
-        }
-
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteSurvey(string surveyId)
         {
             
-            var delete = _responseService.IsDelete(surveyId);
+            var delete = _surveyService.IsDelete(surveyId);
             if (delete)
                 TempData["Message"] = "Survey deleted successfully!";
             else TempData["Message"] = "failed to DELETE survey";
@@ -130,7 +68,7 @@ namespace Survey_Feedback_App.Controllers
             link = Uri.UnescapeDataString(link);
             // Extract survey ID from the link
             var linkId = link.Split('/').Last();
-            var surveyResponse = _responseService.ViewSurvey(linkId);
+            var surveyResponse = _viewSurvey.ViewSurvey(linkId);
             var model = new SurveyFeedbackViewModel();
             if (surveyResponse.IsSuccessfull)
             {
@@ -140,52 +78,39 @@ namespace Survey_Feedback_App.Controllers
         }
 
 
-
-        [HttpPost]
-        public IActionResult SubmitFeedback(SubmitResponseViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = _responseService.AddResponse(model.Survey, model.Email);
-
-                if (result.IsSuccessfull)
-                {
-                    TempData["Message"] = "Thank you for your feedback!";
-                    return RedirectToAction("SurveySubmitted");
-                }
-
-                return View("TakeSurvey", model);
-            }
-
-            return View("TakeSurvey", model);
-        }
-
         public IActionResult UserSurvey()
         {
-            var survey = _createService.GetUserSurvey(_identity.GetCurrentUser().Id);
+            var survey = _surveyService.GetUserSurvey(_identity.GetCurrentUser().Id);
             return View(survey.Data);
         }
 
-        public IActionResult SurveySubmitted()
+        
+        public IActionResult SurveyAnalysis(string surveyId)
         {
-            return View();
-        }
+            // Fetch the survey data based on the surveyId
+            var survey = _surveyService.GetById(surveyId);
 
-        public IActionResult SurveyFeedback()
-        {
-            var survey = _createService.GetUserSurvey(_identity.GetCurrentUser().Id);
-            return View(survey.Data);
-        }
+            // Process the data to get counts for each response per question
+            var surveyAnalysis = new List<AnalysisViewModel>();
 
-        public IActionResult ViewSurveyFeedback(string link)
-        {
-            link = Uri.UnescapeDataString(link);
-            // Extract survey ID from the link
-            var linkId = link.Split('/').Last();
-            var surveyResponse = _feedback.GetFeedbackById(linkId);
-            return View(surveyResponse.Data);
-        }
+            foreach (var question in survey.Questions)
+            {
+                var questionAnalysis = new AnalysisViewModel
+                {
+                    QuestionText = question.QuestionText,
+                    ResponseCounts = question.Options.Select(option => new ResponseCount
+                    {
+                        OptionText = option.OptionText,
+                        Count = question.Options.Count(response => response.Id == option.Id)
+                    }).ToList()
+                };
 
+                surveyAnalysis.Add(questionAnalysis);
+            }
+
+            // Pass the analysis data to the view
+            return View(surveyAnalysis);
+        }
 
     }
 }

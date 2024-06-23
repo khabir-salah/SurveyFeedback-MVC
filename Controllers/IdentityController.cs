@@ -11,9 +11,9 @@ namespace Survey_Feedback_App.Controllers
     public class IdentityController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IIdentityService _IdentityService;
-        private readonly ICreateSurveyService _SurveyService;
+        private readonly ISurveyService _SurveyService;
         private readonly IResponseService _responseService;
-        public IdentityController(IIdentityService identityService, ICreateSurveyService surveyService, IResponseService responseService)
+        public IdentityController(IIdentityService identityService, ISurveyService surveyService, IResponseService responseService)
         {
             _IdentityService = identityService;
             _SurveyService = surveyService;
@@ -59,7 +59,9 @@ namespace Survey_Feedback_App.Controllers
                 var property = new AuthenticationProperties();
                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, property);
                 TempData["Message"] = user.message;
-                return RedirectToAction("UserDashboard" , user.Data.UsersRegId);
+                TempData["UserId"] = user.Data.UsersRegId;
+
+                return RedirectToAction( "UserDashboard"  );
             }
             TempData["Message"] = user.message;
             return View(request);
@@ -74,22 +76,30 @@ namespace Survey_Feedback_App.Controllers
             return View();
         }
 
-        public IActionResult UserDashBoard(string userId)
+        
+        public IActionResult UserDashBoard()
         {
+            string userId = TempData.ContainsKey("UserId")? (string)TempData["UserId"] : null;
             // Fetch the number of surveys created by the user
             var numberOfSurveysCreated = _SurveyService.GetSurveyCount(userId);
 
             // Fetch the number of feedbacks for surveys created by the user
             var numberOfFeedbacks = _responseService.GetResponseCount(userId);
 
+            TempData["UserId"] = userId;
             var model = new DashboardViewModel
             {
-                ResponseCount = numberOfSurveysCreated,
-                SurveyCount = numberOfFeedbacks,
+                SurveyCount = numberOfSurveysCreated,
+                ResponseCount = numberOfFeedbacks,
             };
 
             return View(model);
         }
+
+        //public IActionResult UserDashBoard()
+        //{
+        //    return View();
+        //}
 
         public IActionResult LogOut()
         {
