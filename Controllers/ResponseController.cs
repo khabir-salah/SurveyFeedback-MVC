@@ -59,21 +59,22 @@ namespace Survey_Feedback_App.Controllers
                 model.ShowSurveyForm = false;
             }
 
-            else if (surveyResponse.Data.EndTime > DateTime.Now)
+            else if (DateTime.Now > surveyResponse.Data.EndTime )
             {
                 model.ErrorMessage = "Survey Response Ended.";
                 model.ShowSurveyForm = false;
+                
             }
 
-            else if (!_feedbackService.IsFeedbackExist(model.Email, model.SurveyId))
-            {
-                model.Survey = surveyResponse.Data;
-                model.ShowSurveyForm = true;
-            }
-            else
+            else if (_feedbackService.IsFeedbackExist(model.Email, model.SurveyId))
             {
                 model.ErrorMessage = "You have already given feedback for this survey.";
                 model.ShowSurveyForm = false;
+            }
+            else
+            {
+                model.Survey = surveyResponse.Data;
+                model.ShowSurveyForm = true;
             }
             return View(model);
         }

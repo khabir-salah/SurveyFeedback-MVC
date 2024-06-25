@@ -11,7 +11,7 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
 
         BaseResponse<UsersRegResponseModel> Login(UserLoginRequestModel request);
 
-
+        BaseResponse<UsersUnregResponseModel> GetUnreg(string Id);
         BaseResponse<UsersRegResponseModel> Get(string email);
         BaseResponse<UsersUnregResponseModel> Add(string email);
         UsersReg GetCurrentUser();

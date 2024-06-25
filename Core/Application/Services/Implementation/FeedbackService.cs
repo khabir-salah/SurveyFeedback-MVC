@@ -36,7 +36,17 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                        
                     },
                     UsersUnreg = new UsersUnregResponseModel { Email = a.UserUnreg.Email},
-                    QuestionResponses = a.QuestionResponses
+                    QuestionResponses = a.QuestionResponses.Select(s => new QuestionResponseResponseModel
+                    {
+                        Type = s.Question.Type,
+                        QuestionText = s.Question.QuestionText,
+                        QuestionOptionText = s.QuestionOptionText,
+                        Options = s.QuestionResponseOption.Select(o => new OptionResponseModel
+                        {
+                            OptionId = o.OptionId,
+                            OptionText = o.Option.OptionText
+                        }).ToList(),
+                    }).ToList(),
                     
                 }).ToList()
                 
@@ -46,7 +56,9 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
         public bool IsFeedbackExist(string email, string SurveyId)
         {
             var getUser = _userUnreg.Get(s => s.Email == email);
-            var checkEmail = _responseRepo.GetAll().Where(s => s.Id == SurveyId && s.UsersUnregId == getUser.Id).Any();
+            if (getUser == null)
+                return false;
+            var checkEmail = _responseRepo.GetAll().Where(s => s.SurveyId == SurveyId && s.UsersUnregId == getUser.Id).Any();
             if (checkEmail)
             {
                 return true;

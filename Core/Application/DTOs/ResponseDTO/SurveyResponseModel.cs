@@ -19,13 +19,9 @@ namespace Survey_Feedback_App.Core.Application.DTOs.ResponseDTO
     {
         public UsersUnregResponseModel UsersUnreg { get; set; }
         public SurveyResponseModel Survey { get; set; }
+
        
-        public List<QuestionResponse> QuestionResponses { get; set; } = new List<QuestionResponse>();
-
-        public DateTime EndTime { get; set; }
-        public DateTime TimeCreated { get; set; }
-        public int FeedbackCount { get; set; }
-
+        public List<QuestionResponseResponseModel> QuestionResponses { get; set; } = new List<QuestionResponseResponseModel>();
     }
 
     public class SurveyRequestModels

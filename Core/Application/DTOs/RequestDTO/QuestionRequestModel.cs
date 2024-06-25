@@ -12,6 +12,8 @@ namespace Survey_Feedback_App.Core.Application.DTOs.RequestDTO
     }
     public class OptionRequestModel
     {
+        public string QuestionId { get; set; }
+        public Question Question { get; set; }
         public string OptionText { get; set; }
     }
 }

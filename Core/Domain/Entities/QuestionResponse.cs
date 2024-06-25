@@ -3,9 +3,9 @@
     public class QuestionResponse : Auditables
     {
         public string QuestionId { get; set; }
-        public string OptionId { get; set; }
         public Question Question { get; set; }
-        public Option Option { get; set; }
+        public ICollection<QuestionResponseOption> QuestionResponseOption { get; set; } = new HashSet<QuestionResponseOption>();
+        public string? QuestionOptionText { get; set; }
 
     }
 }

@@ -18,9 +18,15 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return request;
         }
 
+        public QuestionResponseOption AddResponseOption(QuestionResponseOption request)
+        {
+            _context.QuestionResponseOption.Add(request);
+            return request;
+        }
+
         public Option? GetById (string id)
         {
-           return  _context.Options.Include(q => q.Question).FirstOrDefault(o => o.Id == id);
+           return  _context.Options.FirstOrDefault(o => o.Id == id);
         }
 
         public void Update(Option request)

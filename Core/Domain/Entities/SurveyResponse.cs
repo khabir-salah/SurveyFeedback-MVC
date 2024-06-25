@@ -9,7 +9,6 @@
 
         public Survey Survey { get; set; }
         public UsersUnreg UserUnreg { get; set; }
-        public int ResponseCount { get; set; }
         //public Question Question { get; set; }
     }
 }

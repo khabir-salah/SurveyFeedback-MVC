@@ -26,13 +26,13 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             return survey;
         }
 
-        //public ICollection<Survey> GetAll()
+        //public Survey GetUserSurvey( string Id)
         //{
-        //    var surveys = _context.Surveys.Include(s => s.Questions).ToList();
+        //    var surveys = _context.Surveys.FirstOrDefault( u => u.);
         //    return surveys;
         //}
 
-       
+
 
         public ICollection<Survey> GetByUser(string Id)
         {

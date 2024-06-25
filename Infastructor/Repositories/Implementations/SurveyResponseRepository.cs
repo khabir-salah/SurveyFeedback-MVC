@@ -27,7 +27,7 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
 
         public ICollection<SurveyResponse> GetAll()
         {
-           var feedbacks = _context.Feedbacks.Include(s => s.Survey).Include(q => q.QuestionResponses).ThenInclude(q => q.Question).Include(q => q.QuestionResponses).ThenInclude(q => q.Option).Include(q => q.UserUnreg).ToList();
+           var feedbacks = _context.Feedbacks.Include(s => s.Survey).Include(q => q.QuestionResponses).ThenInclude(q => q.Question).Include(q => q.QuestionResponses).ThenInclude(q => q.QuestionResponseOption).ThenInclude(o => o.Option).Include(q => q.UserUnreg).ToList();
             return feedbacks;
         }
 

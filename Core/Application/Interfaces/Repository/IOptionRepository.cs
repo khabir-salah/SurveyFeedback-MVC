@@ -7,5 +7,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
         Option Add(Option request);
         Option GetById(string id);
         void Update(Option request);
+        QuestionResponseOption AddResponseOption(QuestionResponseOption request);
     }
 }

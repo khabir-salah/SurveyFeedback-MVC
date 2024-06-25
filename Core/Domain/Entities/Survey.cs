@@ -11,7 +11,6 @@ namespace Survey_Feedback_App.Core.Domain.Entities
         public DateTime TmeCreated { get; set; }
         public DateTime EndTime { get; set; }
         public string? Upload { get; set; }
-        public int SurveyCount { get; set; }
         public ICollection<Question> Questions { get; set; } = new List<Question>();
     }
 }

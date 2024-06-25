@@ -153,16 +153,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         public BaseResponse<UsersUnregResponseModel> Add(string email)
         {
-            var isExist = IsUserExist(email);
-            if (isExist)
-            {
-                return new BaseResponse<UsersUnregResponseModel>
-                {
-                    IsSuccessfull = false,
-                    Data = null,
-                    message = "User Already Exist",
-                };
-            }
+            
             var user = new UsersUnreg
             {
                 Email = email,
@@ -187,6 +178,30 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                     .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var user = _userRegRepo.Get(a => a.Id == userId);
             return user;
+        }
+
+        public BaseResponse<UsersUnregResponseModel> GetUnreg(string Id)
+        {
+            var user = _userRepo.Get(s => s.Email == Id);
+            if (user == null)
+            {
+                return new BaseResponse<UsersUnregResponseModel>
+                {
+                    IsSuccessfull = false,
+                    message = "User Not Found",
+                    Data = null,
+                };
+            }
+            return new BaseResponse<UsersUnregResponseModel>
+            {
+                IsSuccessfull = true,
+                message = "Successfull",
+                Data = new UsersUnregResponseModel
+                {
+                    Email = user.Email,
+                    UsersUnregId = user.Id
+                }
+            };
         }
     }
 }

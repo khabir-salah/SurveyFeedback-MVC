@@ -27,6 +27,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                     SurveyId = getSurvey.Id,
                     Title = getSurvey.Title,
                     Uplaod = getSurvey.Upload,
+                    EndTime = getSurvey.EndTime,
                     Questions = getSurvey.Questions.Select(q => new QuestionResponseModel
                     {
                         QuestionId = q.Id,

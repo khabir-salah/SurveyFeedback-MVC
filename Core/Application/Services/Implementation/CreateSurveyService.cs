@@ -82,9 +82,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
                 }
             }
 
-            var noOfSurvey = _surveyRepo.GetByUser(survey.UsersRegId).Count;
-            survey.SurveyCount = noOfSurvey + 1;
-            _surveyRepo.Update(survey);
+           
             _surveyRepo.Add(survey);
             _unitOfWork.Save();
 
