@@ -122,18 +122,21 @@ namespace Survey_Feedback_App.Controllers
         }
 
         [HttpPost]
-        public IActionResult SearchSurvey(SearchModel request)
+        public IActionResult SearchSurvey(SurveySearchViewModel request)
         {
             var search = _surveyService.SeachSurvey(request.Title);
-            if(!search.IsSuccessfull)
-                return View(search);
-            return View(search.Data);
+            var model = new SurveySearchViewModel
+            {
+                Title = request.Title,
+                SearchResults = search.IsSuccessfull ? search.Data : new List<SearchModel>()
+            };
+            return View(model);
         }
 
   
         public IActionResult SearchSurvey()
         {
-            var model = new SearchModel();
+            var model = new SurveySearchViewModel();
             return View(model);
         }
     }
