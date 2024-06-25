@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Survey_Feedback_App.Core.Application.DTOs.RequestDTO;
 using Survey_Feedback_App.Core.Application.DTOs.ResponseDTO;
 using Survey_Feedback_App.Core.Application.Interfaces.Service;
+using Survey_Feedback_App.Core.Application.Services.Implementation;
 using System.Security.Claims;
 
 namespace Survey_Feedback_App.Controllers
@@ -85,6 +86,7 @@ namespace Survey_Feedback_App.Controllers
 
             // Fetch the number of feedbacks for surveys created by the user
             var numberOfFeedbacks = _responseService.GetResponseCount(userId);
+
 
             TempData["UserId"] = userId;
             var model = new DashboardViewModel

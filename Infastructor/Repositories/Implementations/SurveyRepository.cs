@@ -47,9 +47,12 @@ namespace Survey_Feedback_App.Infastructor.Repositories.Implementations
             else _context.Surveys.Remove(survey); return true;
         }
 
-        public void Update(Survey survey)
+       
+
+        public ICollection<Survey> UserSurveyByTitle(string title, string userId)
         {
-            _context.Update(survey);
+            var surveys = _context.Surveys.Include(s => s.Questions).ThenInclude(u => u.Options).Where(s => s.Title == title && s.UsersRegId == userId).ToList();
+            return surveys;
         }
     }
 }

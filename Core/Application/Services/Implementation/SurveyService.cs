@@ -10,10 +10,12 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         private readonly ISurveyRepository _surveyRepo;
         private readonly IUnitOfWork _unitOfWork;
-        public SurveyService(ISurveyRepository surveyRepo, IUnitOfWork unitOfWork)
+        private readonly IIdentityService _identity;
+        public SurveyService(ISurveyRepository surveyRepo, IUnitOfWork unitOfWork, IIdentityService identity)
         {
             _surveyRepo = surveyRepo;
             _unitOfWork = unitOfWork;
+            _identity = identity;
         }
 
         public BaseResponse<ICollection<SurveyResponseModel>> GetUserSurvey(string id)
@@ -51,5 +53,26 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
             { _unitOfWork.Save(); return true; }
             else return false;
         }
+
+        public BaseResponse<ICollection<SearchModel>> SeachSurvey(string title)
+        {
+            var userId = _identity.GetCurrentUser().Id;
+            var seach = _surveyRepo.UserSurveyByTitle(title, userId);
+            if (seach == null) return new BaseResponse<ICollection<SearchModel>>
+            {
+                IsSuccessfull = false
+            };
+            return new BaseResponse<ICollection<SearchModel>>
+            {
+                IsSuccessfull = true,
+                Data = seach.Select(s => new SearchModel
+                {
+                    SurveyId = s.Id,
+                    Title = s.Title
+                }).ToList(),
+            };
+        }
+
+       
     }
 }

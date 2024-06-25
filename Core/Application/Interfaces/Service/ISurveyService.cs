@@ -10,5 +10,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Service
         int GetSurveyCount(string userId);
         Survey GetById(string Id);
         bool IsDelete(string id);
+        BaseResponse<ICollection<SearchModel>> SeachSurvey(string title);
     }
 }

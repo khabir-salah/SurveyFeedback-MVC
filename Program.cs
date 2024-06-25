@@ -32,6 +32,8 @@ namespace Survey_Feedback_App
             builder.Services.AddScoped<IFeedbackService, FeedbackService>();
             builder.Services.AddScoped<ISurveyResposeRepository, SurveyResponseRepository>();
             builder.Services.AddScoped<IUsersUnregRepository, UsersUnregRepository>();
+            builder.Services.AddScoped<ISurveyService, SurveyService>();
+            builder.Services.AddScoped<IViewSurveyService, ViewSurveyService>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>

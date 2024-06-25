@@ -121,5 +121,20 @@ namespace Survey_Feedback_App.Controllers
             return View(surveyAnalysis);
         }
 
+        [HttpPost]
+        public IActionResult SearchSurvey(SearchModel request)
+        {
+            var search = _surveyService.SeachSurvey(request.Title);
+            if(!search.IsSuccessfull)
+                return View(search);
+            return View(search.Data);
+        }
+
+  
+        public IActionResult SearchSurvey()
+        {
+            var model = new SearchModel();
+            return View(model);
+        }
     }
 }

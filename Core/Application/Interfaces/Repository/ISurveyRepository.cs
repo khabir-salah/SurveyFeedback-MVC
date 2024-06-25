@@ -10,6 +10,6 @@ namespace Survey_Feedback_App.Core.Application.Interfaces.Repository
         ICollection<Survey> GetByUser(string Id);
         bool IsDelete(string Id);
         Survey GetById(string Id);
-        public void Update(Survey survey);
+        ICollection<Survey> UserSurveyByTitle(string title, string userId);
     }
 }
