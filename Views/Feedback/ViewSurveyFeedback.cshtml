@@ -98,23 +98,26 @@
                                 @foreach (var question in feedback.QuestionResponses)
                                 {
                                     <div class="form-group">
-                                        <label>@question.Question.QuestionText</label>
-                                        @if (question.Question.Type == Types.Text)
+                                        <label>@question.QuestionText</label>
+                                        @if (question.Type == Types.Text)
                                         {
-                                            <p class="form-control-static">@question.Option.OptionText</p>
+                                            <p class="form-control-static">@question.QuestionOptionText</p>
                                         }
-                                        else if (question.Question.Type == Types.Radio || question.Question.Type == Types.Checkbox)
+                                        else
                                         {
-                                            var selectedOptions = question.Option.OptionText
-                                            .Split("/n");
+                                         
 
-                                            @foreach (var option in selectedOptions)
+                                            @foreach (var option in question.Options)
                                             {
                                                 <div class="form-check">
                                                     <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" disabled @(option.OptionText) />
+                                                        @option.OptionText
+                                                    </label>@* 
+                                                    <label class="form-check-label">
                                                         <input type="checkbox" class="form-check-input" disabled @(option != null && option.Contains(option) ? "checked" : "") />
                                                         @option
-                                                    </label>
+                                                    </label> *@
                                                 </div>
                                             }
                                         }

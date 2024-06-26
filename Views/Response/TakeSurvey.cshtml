@@ -1,6 +1,4 @@
-﻿@{
-    Layout = null;
-}
+﻿
 @using Survey_Feedback_App.Core.Domain.Enum;
 @model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveyFeedbackViewModel
 
@@ -27,17 +25,18 @@
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h2 class="card-title text-center">@Model.Survey.Title</h2>
 
                         @if (Model.Survey != null && Model.ShowSurveyForm)
                         {
+                            <h2 class="card-title text-center">@Model.Survey.Title</h2>
+
                             @if (!string.IsNullOrEmpty(Model.Survey.Uplaod))
                             {
                                 <div class="text-center">
                                     <img src="@Model.Survey.Uplaod" alt="Survey Image" class="survey-image" />
                                 </div>
                             }
-                            @using (Html.BeginForm("SubmitFeedback", "Survey", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                            @using (Html.BeginForm("SubmitFeedback", "Feedback", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
                             {
                                 @Html.HiddenFor(m => m.Survey.SurveyId)
                                 @Html.HiddenFor(m => m.Survey.UsersUnregId)
@@ -62,7 +61,7 @@
                                             @foreach (var option in Model.Survey.Questions[i].Options)
                                             {
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="Survey.Questions[@i].Response" value="@option.OptionId" required />
+                                                    <input class="form-check-input" type="radio" name="Survey.Questions[@i].SelectedOptions" value="@option.OptionId" required />
                                                     <label class="form-check-label">@option.OptionText</label>
                                                 </div>
                                             }
@@ -86,7 +85,7 @@
                         }
                         else
                         {
-                            @using (Html.BeginForm("TakeSurvey", "Survey", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+                            @using (Html.BeginForm("TakeSurvey", "Response", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
                             {
                                 <div class="mb-3">
                                     <label for="inputEmail" class="form-label">Email Address</label>

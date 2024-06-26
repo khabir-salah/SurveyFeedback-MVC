@@ -32,7 +32,7 @@
                                 <div>
                                     <span>@survey.Title</span>
                                     <br />
-                                    <span>Survey Link: <code>https://localhost:7224/Survey/TakeSurvey?link=http%3A%2F%2Flocalhost7224%2Fsurvey%2F/@survey.SurveyId</code></span>
+                                    <span>Survey Link: <code>https://localhost:7224/Response/TakeSurvey?link=http%3A%2F%2Flocalhost7224%2Fsurvey%2F/@survey.SurveyId</code></span>
                                 </div>
                                 <div>
                                     <a href="@Url.Action("SurveyAnalysis", "Survey", new { link = survey.SurveyId })" class="btn btn-primary">Check Analysis</a>

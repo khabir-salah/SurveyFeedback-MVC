@@ -12,8 +12,8 @@ using Survey_Feedback_App.Infastructor.Context;
 namespace Survey_Feedback_App.Migrations
 {
     [DbContext(typeof(SurveyFeedbackContext))]
-    [Migration("20240609222620_fourth initial")]
-    partial class fourthinitial
+    [Migration("20240624214347_two-migrantion")]
+    partial class twomigrantion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,129 @@ namespace Survey_Feedback_App.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Feedback", b =>
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Option", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OptionText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("QuestionId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Options");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Question", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("QuestionText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SurveyId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.QuestionResponse", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("QuestionId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("QuestionOptionText")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SurveyResponseId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("SurveyResponseId");
+
+                    b.ToTable("Responses");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.QuestionResponseOption", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("OptionId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("QuestionResponseId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionId");
+
+                    b.HasIndex("QuestionResponseId");
+
+                    b.ToTable("QuestionResponseOption");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Survey", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("TmeCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Upload")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UsersRegId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Surveys");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.SurveyResponse", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("SurveyId")
                         .IsRequired()
@@ -52,112 +168,6 @@ namespace Survey_Feedback_App.Migrations
                     b.HasIndex("UsersUnregId");
 
                     b.ToTable("Feedbacks");
-                });
-
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Option", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("QuestionId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Options");
-                });
-
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Question", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("SurveyId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SurveyId");
-
-                    b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Response", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("FeedbackId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Responses")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("SurveyId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("UsersUnregId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FeedbackId");
-
-                    b.HasIndex("SurveyId");
-
-                    b.ToTable("Responses");
-                });
-
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Survey", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("TmeCreated")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("UniqueLink")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Upload")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UsersRegId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Surveys");
                 });
 
             modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.UsersReg", b =>
@@ -212,25 +222,6 @@ namespace Survey_Feedback_App.Migrations
                     b.ToTable("UsersUnregs");
                 });
 
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Feedback", b =>
-                {
-                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Survey", "Surveys")
-                        .WithMany()
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.UsersUnreg", "UsersUnreg")
-                        .WithMany()
-                        .HasForeignKey("UsersUnregId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Surveys");
-
-                    b.Navigation("UsersUnreg");
-                });
-
             modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Option", b =>
                 {
                     b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Question", "Question")
@@ -253,24 +244,62 @@ namespace Survey_Feedback_App.Migrations
                     b.Navigation("Surveys");
                 });
 
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Response", b =>
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.QuestionResponse", b =>
                 {
-                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Feedback", null)
-                        .WithMany("Responses")
-                        .HasForeignKey("FeedbackId");
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Survey", "Surveys")
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.SurveyResponse", null)
+                        .WithMany("QuestionResponses")
+                        .HasForeignKey("SurveyResponseId");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.QuestionResponseOption", b =>
+                {
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Option", "Option")
+                        .WithMany("QuestionResponseOption")
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.QuestionResponse", "QuestionResponse")
+                        .WithMany("QuestionResponseOption")
+                        .HasForeignKey("QuestionResponseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Option");
+
+                    b.Navigation("QuestionResponse");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.SurveyResponse", b =>
+                {
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.Survey", "Survey")
                         .WithMany()
                         .HasForeignKey("SurveyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Surveys");
+                    b.HasOne("Survey_Feedback_App.Core.Domain.Entities.UsersUnreg", "UserUnreg")
+                        .WithMany()
+                        .HasForeignKey("UsersUnregId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Survey");
+
+                    b.Navigation("UserUnreg");
                 });
 
-            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Feedback", b =>
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Option", b =>
                 {
-                    b.Navigation("Responses");
+                    b.Navigation("QuestionResponseOption");
                 });
 
             modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Question", b =>
@@ -278,9 +307,19 @@ namespace Survey_Feedback_App.Migrations
                     b.Navigation("Options");
                 });
 
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.QuestionResponse", b =>
+                {
+                    b.Navigation("QuestionResponseOption");
+                });
+
             modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.Survey", b =>
                 {
                     b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Survey_Feedback_App.Core.Domain.Entities.SurveyResponse", b =>
+                {
+                    b.Navigation("QuestionResponses");
                 });
 #pragma warning restore 612, 618
         }

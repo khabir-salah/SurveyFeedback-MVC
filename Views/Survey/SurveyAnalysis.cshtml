@@ -20,40 +20,51 @@
 <body>
     <div class="container mt-5">
         <h2>@ViewData["Title"]</h2>
-        @foreach (var question in Model)
+        @if (Model != null && Model.Any())
         {
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h4 class="card-title">@question.QuestionText</h4>
-                    <canvas id="chart-@question.QuestionText.GetHashCode()"></canvas>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                var question = Model.ElementAt(i);
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4 class="card-title">@question.QuestionText</h4>
+                        <canvas id="chart-@i"></canvas>
+                    </div>
                 </div>
-            </div>
-
-            <script>
-                var ctx = document.getElementById('chart-@question.QuestionText.GetHashCode()').getContext('2d');
-                var chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: @Html.Raw(Json.Serialize(question.ResponseCounts.Select(rc => rc.OptionText))),
-                        datasets: [{
-                            label: '# of Responses',
-                            data: @Html.Raw(Json.Serialize(question.ResponseCounts.Select(rc => rc.Count))),
-                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                <script>
+                    var ctx = document.getElementById('chart-@i').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: @Html.Raw(Json.Serialize(question.ResponseCounts.Select(rc => rc.OptionText))),
+                            datasets: [{
+                                label: '# of Responses',
+                                data: @Html.Raw(Json.Serialize(question.ResponseCounts.Select(rc => rc.Count))),
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1 // This ensures each count increment is represented
+                                    }
+                                }
                             }
                         }
-                    }
-                });
-            </script>
+                    });
+                </script>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                No survey data found.
+            </div>
         }
     </div>
 </body>
 </html>
-

@@ -3,11 +3,14 @@
 @{
     Layout = "_Layout1";
 }
+@{
+    Layout = "_Layout1";
+}
 
-<h3 class="i-name">Dashboard</h3>
-<div class="values" >
+<h3 class="i-name" class="mystyle">Dashboard</h3>
+<div class="values">
     <div class="val-box">
-        <i class="fa fa-handshake-o"></i>
+        <i class="fa fa-book"></i>
         <div>
             <h3>@Model.SurveyCount</h3>
             <span>No of Surveys Created</span>
@@ -15,7 +18,7 @@
     </div>
     <!--==========box 2=============-->
     <div class="val-box">
-        <i class="fa fa-book"></i>
+        <i class="fa fa-handshake-o"></i>
         <div>
             <h3>@Model.ResponseCount</h3>
             <span>No of Feedbacks</span>
@@ -30,9 +33,6 @@
         </div>
     </div>
 </div>
-
-
-
 <div>
     <img src="~/Template/images/appimg.png" alt="Dashboard Image" class="dashboard-img">
 </div>
@@ -40,8 +40,10 @@
 <style>
     .dashboard-img {
         width: 100%;
-        height: 30%;
-        
+        height: 5%;     
+    }
+    .mystyle{
+        padding-top: 20px;
+        margin-top: 40px;
     }
 </style>
-

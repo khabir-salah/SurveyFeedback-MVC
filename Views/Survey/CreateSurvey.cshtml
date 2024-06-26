@@ -131,7 +131,7 @@
             const questionHtml = `
                                 <div class="form-group">
                                     <label>Question ${questionIndex + 1}</label>
-                                    <input type="text" name="Questions[${questionIndex}].Text" class="form-control" placeholder="Enter your question" />
+                                    <input type="text" name="Questions[${questionIndex}].QuestionText" class="form-control" placeholder="Enter your question" />
                                     <select name="Questions[${questionIndex}].Type" class="form-control mb-2">
                                         <option value="Text">Text</option>
                                         <option value="Radio">Multiple Choice (Radio)</option>
@@ -149,7 +149,7 @@
             const optionCount = optionsContainer.getElementsByClassName('form-check').length;
             const optionHtml = `
                                 <div class="form-check">
-                                    <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].Text" class="form-control" placeholder="Option ${optionCount + 1} text" />
+                                    <input type="text" name="Questions[${questionIndex}].Options[${optionCount}].OptionText" class="form-control" placeholder="Option ${optionCount + 1} text" />
                                 </div>
                             `;
             optionsContainer.innerHTML += optionHtml;

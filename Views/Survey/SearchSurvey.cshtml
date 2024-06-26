@@ -1,0 +1,58 @@
+﻿@model Survey_Feedback_App.Core.Application.DTOs.ResponseDTO.SurveySearchViewModel
+
+@{
+    Layout = "_Layout1";
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2>Search Surveys</h2>
+            <form asp-action="SearchSurvey" asp-controller="Survey" method="post" class="form-inline">
+                <div class="input-group">
+                    <input type="text" name="Title" placeholder="Search Survey By Title" class="form-control" value="@Model.Title" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
+            @if (Model.SearchResults == null)
+            {
+                <div class="alert alert-info" role="alert">
+                    Enter a title to search for surveys.
+                </div>
+            }
+            else if (Model.SearchResults.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var survey in Model.SearchResults)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="font-weight-bold">@survey.Title</span>
+                                <br />
+                                <span>Survey Link: <code>https://localhost:7224/Response/TakeSurvey?link=https%3A%2F%2Flocalhost%3A7224%2Fsurvey%2F/@survey.SurveyId</code></span>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("ViewSurvey", "Survey", new { link = survey.SurveyId })" class="btn btn-sm btn-info">Check Survey</a>
+                                <a href="@Url.Action("ViewSurveyFeedback", "Feedback", new { link = survey.SurveyId })" class="btn btn-sm btn-success">View Feedback</a>
+                                <a href="@Url.Action("SurveyAnalysis", "Survey", new { link = survey.SurveyId })" class="btn btn-sm btn-warning">Survey Analysis</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    No surveys found.
+                </div>
+            }
+        </div>
+    </div>
+</div>

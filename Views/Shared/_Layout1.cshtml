@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,8 +29,8 @@
                 </a>
             </li>
             <li>
-                <a asp-action="" asp-controller="">
-                    <i class='fa fa-home fas'></i>Home
+                <a asp-action="SearchSurvey" asp-controller="Survey">
+                    <i class='fa fa-home fas'></i>Search Survey
                 </a>
             </li>
             <li>
@@ -42,12 +44,12 @@
                 </a>
             </li>
             <li>
-                <a asp-action="SurveyFeedback" asp-controller="Survey">
+                <a asp-action="SurveyFeedback" asp-controller="Feedback">
                     <i class='fa fa-book fas'></i> View Feedback
                 </a>
             </li>
             <li>
-                <a asp-action="ViewSurvey" asp-controller="Survey">
+                <a asp-action="ViewAnalysis" asp-controller="Survey">
                     <i class="fa fa-bars"></i> Survey Analysis
                 </a>
             </li>
@@ -69,17 +71,14 @@
                 <div>
                     <i id="menu-btn" class="fa fa-bars"></i>
                 </div>
-                <div class="profile-bell">
-                    <div class="search">
-                        <i class="	fa fa-search"></i>
-                        <input type="text" placeholder="Search">
-                    </div>
-                    <div class="profile">
+               
+
+                   @*  <div class="profile">
                         <i class="fa fa-bell"></i>
 
                         <!-- this image will be dynamically rendered to pop up the log in user's image -->
                         <img src="~/src/Picture/@TempData["Pic"]" alt="loading">
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
