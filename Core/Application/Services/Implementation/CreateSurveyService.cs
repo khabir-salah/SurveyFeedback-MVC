@@ -33,16 +33,7 @@ namespace Survey_Feedback_App.Core.Application.Services.Implementation
 
         
 
-       /* private bool isTitleExist(string title, string id)
-        {
-            var check = _surveyRepo.GetByUser(id).Where(s => s.Title == title).Any();
-            if(check)
-            {
-                return true;
-            }
-            return false;
-        } */
-
+       
         public BaseResponse<string> Create(SurveyRequestModel model)
         {
             var imageUrl = SaveImage(model.Upload);

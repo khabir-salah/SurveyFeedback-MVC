@@ -94,12 +94,9 @@ namespace Survey_Feedback_App.Controllers
         public IActionResult SurveyAnalysis(string link)
         {
             link = Uri.UnescapeDataString(link);
-            // Extract survey ID from the link
             var linkId = link.Split('/').Last();
-            // Fetch the survey data based on the surveyId
             var survey = _surveyService.GetById(linkId);
 
-            // Process the data to get counts for each response per question
             var surveyAnalysis = new List<AnalysisViewModel>();
 
             foreach (var question in survey.Questions)
@@ -117,9 +114,9 @@ namespace Survey_Feedback_App.Controllers
                 surveyAnalysis.Add(questionAnalysis);
             }
 
-            // Pass the analysis data to the view
             return View(surveyAnalysis);
         }
+
 
         [HttpPost]
         public IActionResult SearchSurvey(SurveySearchViewModel request)

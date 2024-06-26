@@ -13,4 +13,10 @@
         public string Title { get; set; }
         public string SurveyId { get; set; }
     }
+
+    public class SurveySearchViewModel
+    {
+        public string Title { get; set; }
+        public ICollection<SearchModel> SearchResults { get; set; }
+    }
 }
