@@ -20,15 +20,15 @@ This Survey and Feedback Application, built using ASP.NET MVC, is a robust and u
 ### screenshot showing the homepage form when creating question
 ![Survey form!](screenshot/homepage.png "creating  questions in a survey Application")
 ### screenshot showing the survey Analysis after response have been given to a survey
-![Survey form!](screenshot/Screenshot(85).png "creating  questions in a survey Application")
+![Survey Analysis!](screenshot/Screenshot(85).png "creating  questions in a survey Application")
 ### screenshot showing the survey form when creating question
-![Survey form!](screenshot/Screenshot(80).png "creating  questions in a survey Application")
+![Survey Creation!](screenshot/Screenshot(80).png "creating  questions in a survey Application")
 ### screenshot showing search when looking for an already created survey
-![Survey form!](screenshot/Screenshot(79).png "creating  questions in a survey Application")
+![Survey search!](screenshot/Screenshot(79).png "creating  questions in a survey Application")
 ### screenshot showing survey response
-![Survey form!](screenshot/Screenshot(84).png "creating  questions in a survey Application")
+![Survey Response!](screenshot/Screenshot(84).png "creating  questions in a survey Application")
 ### screenshot showing survey link to share to give response to survey
-![Survey form!](screenshot/Screenshot(81).png "creating  questions in a survey Application")
+![Survey link!](screenshot/Screenshot(81).png "creating  questions in a survey Application")
 
 
 
