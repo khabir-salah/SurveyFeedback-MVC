@@ -18,8 +18,7 @@ This Survey and Feedback Application, built using ASP.NET MVC, is a robust and u
 </ul>
 
 ### screenshot showing the survey form when creating question
-![Survey form!](wwwroot/Template/images/homepage(78).png "creating  questions in a survey Application")
-url(wwwroot/Template/images/homepage(78).png)
+![Survey form!](screenshot/homepage.png "creating  questions in a survey Application")
 ## Features
 
 <ul>
